@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Movie Admin Panel</title>
+
+        <link rel="stylesheet" href="/css/admin.css" />
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>Movie Admin Panel</h1>
+
+            <form id="movieForm">
+                <input
+                    type="text"
+                    id="title"
+                    placeholder="Movie Title"
+                    required
+                />
+
+                <!-- BEST OPTION -->
+                <!-- Poster URL -->
+                <input
+                    type="text"
+                    id="poster"
+                    placeholder="Poster Image URL"
+                    required
+                />
+
+                <input
+                    type="number"
+                    id="rating"
+                    step="0.1"
+                    min="0"
+                    max="10"
+                    placeholder="Rating (0-10)"
+                    required
+                />
+
+                <input
+                    type="number"
+                    id="year"
+                    placeholder="Release Year"
+                    required
+                />
+                <input
+                    type="search"
+                    id="actorSearch"
+                    placeholder="Search Actor..."
+                />
+
+                <h3>Selected Cast</h3>
+                <div id="actorResults"></div>
+                <div id="selectedCast"></div>
+                <select name="" id="language">
+                    <option value="Telugu">Telugu</option>
+                    <option value="English">English</option>
+                    <option value="Telugu Dubbed">Telugu Dubbed</option>
+                    <option value="Hindi">Hindi</option>
+                </select>
+
+                <select id="categories" multiple>
+                    <option value="">Select Category</option>
+
+                    <option value="Action">Action</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Animation">Animation</option>
+                    <option value="Biography">Biography</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Documentary">Documentary</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Family">Family</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="History">History</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Music">Music</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Romantic Comedy">Romantic Comedy</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Sport">Sport</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="War">War</option>
+                    <option value="Western">Western</option>
+
+                    <option value="Action Comedy">Action Comedy</option>
+                    <option value="Action Adventure">Action Adventure</option>
+                    <option value="Superhero">Superhero</option>
+                    <option value="Dark Comedy">Dark Comedy</option>
+                    <option value="Psychological Thriller">
+                        Psychological Thriller
+                    </option>
+                    <option value="Crime Thriller">Crime Thriller</option>
+                    <option value="Historical Drama">Historical Drama</option>
+                    <option value="War Drama">War Drama</option>
+                    <option value="Fantasy Adventure">Fantasy Adventure</option>
+                    <option value="Science Fantasy">Science Fantasy</option>
+                    <option value="Teen">Teen</option>
+                    <option value="Kids">Kids</option>
+                    <option value="Family Drama">Family Drama</option>
+                    <option value="Biographical Drama">
+                        Biographical Drama
+                    </option>
+                    <option value="Spy">Spy</option>
+                    <option value="Heist">Heist</option>
+                    <option value="Zombie">Zombie</option>
+                    <option value="Vampire">Vampire</option>
+                    <option value="Supernatural">Supernatural</option>
+                    <option value="Martial Arts">Martial Arts</option>
+                    <option value="Noir">Noir</option>
+                    <option value="Musical">Musical</option>
+                </select>
+
+                <textarea id="review" placeholder="Movie Review"></textarea>
+                <label>Watch On</label>
+
+                <select id="watchOn" multiple>
+                    <option value="Netflix">Netflix</option>
+                    <option value="Amazon Prime Video">
+                        Amazon Prime Video
+                    </option>
+                    <option value="JioHotstar">JioHotstar</option>
+                    <option value="Aha">Aha</option>
+                    <option value="JioTv">JioTv</option>
+                    <option value="ZEE5">ZEE5</option>
+                    <option value="SonyLIV">SonyLIV</option>
+                    <option value="MX Player">MX Player</option>
+                    <option value="Youtube">Youtube</option>
+                    <option value="Sun NXT">Sun NXT</option>
+                </select>
+
+                <button type="submit">Add Movie</button>
+            </form>
+            <a href="/api/admin/logout" class="logout">Logout</a>
+
+            <div id="movieList"></div>
+        </div>
+
+        <script src="/js/admin.js"></script>
+    </body>
+</html>

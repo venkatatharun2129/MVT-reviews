@@ -1,0 +1,162 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:system-ui,sans-serif;
+}
+
+body{
+  background:#0f172a;
+  color:#fff;
+  min-height:100vh;
+}
+
+.singleMovie{
+  max-width:1200px;
+  margin:auto;
+  padding:30px 20px;
+}
+
+.movie-card{
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:30px;
+  background:#1e293b;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.movie-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.movie-info{
+  padding:25px;
+}
+
+.movie-info h3{
+  font-size:2.2rem;
+  margin-bottom:15px;
+}
+
+.meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.badge{
+  background:#334155;
+  padding:8px 14px;
+  border-radius:30px;
+  font-size:.9rem;
+}
+
+.rating{
+  background:#f59e0b;
+  color:#000;
+  font-weight:600;
+}
+
+.meta a{
+  text-decoration:none;
+  color:white;
+}
+
+.section{
+  margin-top:20px;
+}
+
+.section h4{
+  margin-bottom:10px;
+  color:#94a3b8;
+}
+
+.category-list,
+.cast-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.category-list a,
+.cast-list a{
+  text-decoration:none;
+  color:white;
+  background:#2563eb;
+  padding:8px 12px;
+  border-radius:8px;
+  transition:.3s;
+}
+.cast-list a{
+  background:#dc2626;
+}
+
+.category-list a:hover,
+.cast-list a:hover{
+  transform:translateY(-2px);
+}
+
+.review{
+  margin-top:20px;
+  line-height:1.8;
+  color:#e2e8f0;
+}
+.watch-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.platform-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  background: #1f1f1f;
+  color: #fff;
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+}
+
+.platform-btn:hover {
+  transform: translateY(-2px);
+  background: #ff3d00;
+  border-color: #ff3d00;
+  color: #fff;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #00ff99;
+  border-radius: 50%;
+}
+
+.not-available {
+  color: #888;
+  font-size: 14px;
+}
+
+@media(max-width:768px){
+  .movie-card{
+    grid-template-columns:1fr;
+  }
+
+  .movie-card img{
+    height:450px;
+  }
+
+  .movie-info h3{
+    font-size:1.8rem;
+  }
+}

@@ -1,0 +1,90 @@
+body {
+    background: #0f0f0f;
+    color: white;
+    font-family: Arial;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#movieForm {
+    background: #1b1b1b;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+#movieForm input,
+#movieForm textarea {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #2a2a2a;
+    color: white;
+}
+
+#movieForm button {
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #ff3d00;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#movieLlist {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.movie-card {
+    background: #1b1b1b;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.movie-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+}
+
+.movie-info {
+    padding: 15px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.delete-btn {
+    background: red;
+}
+
+.edit-btn {
+    background: green;
+}
+
+.actions button {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}

@@ -1,0 +1,119 @@
+<!-- public/actorMovies.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Actor Movies</title>
+
+  <style>
+  *{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:system-ui,sans-serif;
+}
+
+body{
+  background:#0f172a;
+  color:white;
+  padding:20px;
+}
+
+#actorSearch{
+  width:100%;
+  max-width:600px;
+  display:block;
+  margin:20px auto 30px;
+  padding:15px 20px;
+  border:none;
+  outline:none;
+  border-radius:50px;
+  font-size:16px;
+}
+
+#actorBox{
+  max-width:1000px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:15px;
+}
+
+#actorBox a{
+  text-decoration:none;
+  color:white;
+  background:#1e293b;
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
+  font-weight:600;
+  transition:.3s;
+  box-shadow:0 4px 15px rgba(0,0,0,.2);
+}
+
+#actorBox a:hover{
+  transform:translateY(-5px);
+}
+
+h1{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+@media(max-width:600px){
+  #actorBox{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+  </style>
+
+</head>
+<body>
+  <input type="search" id="actorSearch" placeholder="Seach Actors...">
+  <div id="actorBox"></div>
+
+  <div id="movieGrid"></div>
+
+  <script>
+
+
+    const actorSearch =
+    document.getElementById("actorSearch");
+
+    const actorBox =
+    document.getElementById("actorBox");
+    let allActors = []
+    async function actorData() {
+      const res = await fetch('/api/actors')
+      allActors = await res.json()
+      showActors(allActors)
+    }
+    function showActors(actors) {
+      actorBox.innerHTML = ""
+      actors.forEach(actor => {
+
+        actorBox.innerHTML += `  <a href="/actors/${actor._id}/movies">
+        ${actor.name}
+        </a>`
+      })
+    }
+    actorSearch.addEventListener("input", ()=> {
+      const value = actorSearch.value.toLowerCase()
+      const filterActors = allActors.filter(actor => actor.name.toLowerCase().includes(value))
+      showActors(filterActors)
+    })
+    actorData()
+
+  </script>
+
+</body>
+</html>

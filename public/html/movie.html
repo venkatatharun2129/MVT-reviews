@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Movie Details</title>
+        <link rel="stylesheet" href="/css/movie.css" />
+    </head>
+    <body>
+        <div class="singleMovie"></div>
+
+        <script>
+            const movieId = window.location.pathname.split("/").pop();
+
+            const singleMovie = document.querySelector(".singleMovie");
+            //platformLinks
+            const platformLinks = {
+                YouTube: "https://www.youtube.com",
+                Netflix: "https://www.netflix.com",
+                "Amazon Prime Video": "https://www.primevideo.com",
+                JioHotstar: "https://www.jiohotstar.com",
+                Aha: "https://www.aha.video",
+                ZEE5: "https://www.zee5.com",
+                SonyLIV: "https://www.sonyliv.com",
+                JioTv:"https://www.jiotv.com",
+                "Sun NXT":"https://www.sunnxt.com"
+            };
+
+            async function fetchMovie() {
+                try {
+                    const response = await fetch(`/api/movies/${movieId}`);
+                    const movie = await response.json();
+
+                    singleMovie.innerHTML = `
+
+                        <div class="movie-card">
+
+                        <img src="${movie.poster}" alt="${movie.title}" referrerpolicy="no-referrer">
+
+                        <div class="movie-info">
+
+                        <h3>${movie.title}</h3>
+
+                        <div class="meta">
+                        <span class="badge rating">⭐ ${movie.rating}/10</span>
+                        <a href="/filter?year=${movie.year}" class="badge">
+                        ${movie.year}
+                        </a>
+
+                        <a href="/filter?language=${movie.language}" class="badge">
+                        ${movie.language}
+                        </a>
+                        </div>
+
+                        <div class="section">
+                        <h4>Categories</h4>
+
+                        <div class="category-list">
+                        ${
+                            movie.categories?.length
+                                ? movie.categories
+                                      .map(
+                                          cat =>
+                                              `<a href="/filter?category=${cat}">${cat}</a>`
+                                      )
+                                      .join("")
+                                : "No Category"
+                        }
+                        </div>
+                        </div>
+
+                        <div class="section">
+                        <h4>Cast</h4>
+
+                        <div class="cast-list">
+                        ${
+                            movie.cast?.length
+                                ? movie.cast
+                                      .map(
+                                          actor =>
+                                              `<a href="/actors/${actor._id}/movies">${actor.name}</a>`
+                                      )
+                                      .join("")
+                                : "No Cast"
+                        }
+                        </div>
+                        </div>
+
+                        <div class="section">
+                        <h4>Review</h4>
+                        <p class="review">${movie.review || "No Review Available"}</p>
+
+                        </div>
+                       <div class="watch-platforms">
+  ${
+    movie.watchOn?.length
+      ? movie.watchOn
+          .map(platform => `
+            <a class="platform-btn" href="${platformLinks[platform] || "#"}" target="_blank">
+              <span class="dot"></span>
+              ${platform}
+            </a>
+          `)
+          .join("")
+      : `<p class="not-available">Not available on OTT platforms</p>`
+  }
+</div>
+
+                        </div>
+
+                        </div>
+                        `;
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+
+            fetchMovie();
+        </script>
+    </body>
+</html>
