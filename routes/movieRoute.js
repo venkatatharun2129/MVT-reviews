@@ -7,7 +7,8 @@ const {
     getFilterMovies,
     getTopRatedMovies,
     singleMovie,
-    deleteMovie
+    deleteMovie,
+    homePage
 } = require("../controllers/movieController");
 router.get("/", getMovie);
 router.post("/", addMovie);

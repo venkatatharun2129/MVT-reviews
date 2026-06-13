@@ -11,51 +11,32 @@ const categorySelect = document.getElementById("categories");
 const selectWatchOn = document.getElementById("watchOn");
 
 // FETCH MOVIES
-async function fetchMovies() {
+async function fetchLatestMovie() {
     const response = await fetch("/api/movies");
     const movies = await response.json();
 
-    movieList.innerHTML = "";
+    if (!movies.length) {
+        movieList.innerHTML = "<p>No movies available</p>";
+        return;
+    }
 
-    movies.forEach(movie => {
-        movieList.innerHTML += `
+    // Latest uploaded movie
+    const latestMovie = movies[0];
+
+    movieList.innerHTML = `
         <div class="movie-card">
-
-            <img
-                src="${movie.poster}"
-                referrerpolicy="no-referrer"
-            />
-
-            <div>
-                <h2>${movie.title}</h2>
-
-                <p>Release: ${movie.year || ""}</p>
-                <p>⭐ ${movie.rating}/10</p>
-
-
-                <p>
-Categories:
-${movie.categories?.join(", ") || "No Categories"}
-</p>
-
-                <p>
-                    Cast:
-                    ${
-                        movie.cast && movie.cast.length
-                            ? movie.cast.map(actor => actor.name).join(", ")
-                            : "No Cast"
-                    }
-                </p>
-
-                <p>${movie.review}</p>
-            </div>
-
+            <img src="${latestMovie.poster}" alt="${latestMovie.title}">
+            <h2>${latestMovie.title}</h2>
+            <p>⭐ ${latestMovie.rating}</p>
+            <p>${latestMovie.year}</p>
         </div>
-        `;
-    });
+    `;
 }
 
+fetchLatestMovie();
+
 // ADD MOVIE
+if(movieForm) {
 movieForm.addEventListener("submit", async e => {
     e.preventDefault();
 
@@ -73,6 +54,8 @@ movieForm.addEventListener("submit", async e => {
         watchOn: Array.from(selectWatchOn.selectedOptions).map(
             option => option.value
         ),
+        trailer: document.getElementById("trailer").value,
+        family: document.getElementById("family").value
     };
 
     await fetch("/api/movies", {
@@ -90,8 +73,9 @@ movieForm.addEventListener("submit", async e => {
     selectedCastIds.length = 0;
     selectedCastDiv.innerHTML = "";
 
-    fetchMovies();
+    fetchLatestMovie();
 });
+}
 
 // SEARCH ACTORS
 actorSearch.addEventListener("input", async () => {
@@ -165,22 +149,21 @@ function removeCast(id) {
     }
 }
 async function checkAdmin() {
-  try {
-    const res = await fetch("/api/admin/check", {
-      credentials: "include"
-    });
+    try {
+        const res = await fetch("/api/admin/check", {
+            credentials: "include"
+        });
 
-    const data = await res.json();
+        const data = await res.json();
 
-    if (!data.success) {
-      window.location.href = "/html/admin-login.html";
+        if (!data.success) {
+            window.location.href = "/api/admin/login";
+        }
+    } catch (err) {
+window.location.href = "/api/admin/login";
     }
-
-  } catch (err) {
-    window.location.href = "/html/admin-login.html";
-  }
 }
 
 checkAdmin();
 
-fetchMovies();
+fetchLatestMovie();

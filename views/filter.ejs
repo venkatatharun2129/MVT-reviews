@@ -2,9 +2,14 @@
 <html>
 <head>
   <title>Movie Filter</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/filter.css"/>
+  
 </head>
 <body>
+  <%- include('partials/header') %>
   <div class="container">
 
 <h2>🎬 Movie Filter</h2>
@@ -13,7 +18,7 @@
 
   <select id="category">
 
-  <option value="">Select Category</option>
+  <option value="">All Category</option>
 
   <option value="Action">Action</option>
   <option value="Adventure">Adventure</option>
@@ -106,6 +111,7 @@
 
   <div id="movieList"></div>
   </div>
+  <%- include('partials/footer') %>
 
   <script>
     const params = new URLSearchParams(window.location.search);

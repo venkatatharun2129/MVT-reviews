@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About & Contact</title>
+<link rel="stylesheet" href="/css/main.css">
+
+<style>
+
+/* TITLE */
+.page-title{
+    text-align:center;
+    padding:40px 20px 10px;
+}
+
+.page-title h1{
+    font-size:2.2rem;
+    color:#fff;
+}
+
+.page-title p{
+    color:#94a3b8;
+    margin-top:6px;
+}
+
+/* CONTAINER */
+.container{
+    width:90%;
+    max-width:1100px;
+    margin:30px auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+/* CARD */
+.card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    padding:25px;
+    border-radius:14px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h2{
+    margin-bottom:15px;
+    color:#38bdf8;
+}
+
+.card p{
+    color:#cbd5e1;
+    line-height:1.6;
+    margin-bottom:10px;
+}
+
+/* CONTACT INFO BOX */
+.info{
+    margin-top:15px;
+    padding:12px;
+    background:rgba(56,189,248,0.1);
+    border-left:3px solid #38bdf8;
+    border-radius:8px;
+}
+/* RESPONSIVE */
+@media(max-width:768px){
+    .container{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<%- include('partials/header') %>
+
+<div class="page-title">
+    <h1>About & Contact</h1>
+    <p>Learn more about us or reach out anytime</p>
+</div>
+
+<div class="container">
+
+    <!-- ABOUT -->
+    <div class="card">
+        <h2>About Us</h2>
+        <p>
+            Welcome to <b>MVT Movie Reviews</b> 🎬 — your simple and fast movie information platform.
+        </p>
+        <p>
+            We provide ratings, reviews, and movie details in a clean and easy way.
+            Our goal is to help users quickly find the best movies.
+        </p>
+        <p>
+            Built using Node.js, Express, MongoDB and modern web technologies.
+        </p>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="card">
+        <h2>Contact Us</h2>
+        <p>If you have any issues or feedback, send us a message.</p>
+
+        
+            <p>📧 Email: mvtmoviereviews@gmail.com</p>
+            <p>👤 Name: Tharun</p>
+
+      
+    </div>
+
+</div>
+<%- include('partials/footer') %>
+
+</body>
+</html>

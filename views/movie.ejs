@@ -5,9 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Movie Details</title>
         <link rel="stylesheet" href="/css/movie.css" />
+        <link rel="stylesheet" href="/css/main.css">
     </head>
     <body>
+      <%- include('partials/header') %>
         <div class="singleMovie"></div>
+        <%- include('partials/footer') %>
 
         <script>
             const movieId = window.location.pathname.split("/").pop();

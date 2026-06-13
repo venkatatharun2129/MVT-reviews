@@ -6,23 +6,12 @@
 <title>MVT-Movie Reviews</title>
 
 <link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<header>
-<div class="logo">
-MVT movieReview
-</div>
-
-<nav>
-<a href="#">Home</a>
-<a href="/actors">Actors</a>
-<a href="#">Reviews</a>
-<a href="/top-rated">Top Rated</a>
-<a href="#">About</a>
-</nav>
-</header>
+<%- include('partials/header') %>
 <section class="search-section">
-<input type="search" id="actorSearch" placeholder="Search Movies..." />
+<input type="search" id="movieSearch" placeholder="Search Movies..." />
 
 <div id="searchResults"></div>
 </section>
@@ -101,8 +90,10 @@ id="trendingMovies">
 
 <div id="movieGrid"></div>
 </section>
+<%- include('partials/footer') %>
 
 <script src="/js/app.js">
+  
 
 </script>
 </body>

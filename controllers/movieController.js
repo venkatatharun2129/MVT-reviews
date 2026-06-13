@@ -15,7 +15,7 @@ const getMovie = async (req, res) => {
 
 const addMovie = async (req, res) => {
     try {
-        const { title, poster, rating, year, cast, language,  categories, review, watchOn, } =
+        const { title, poster, rating, year, cast, language,  categories, review, watchOn, trailer, family } =
             req.body;
         const movie = new Movie({
             title,
@@ -27,6 +27,8 @@ const addMovie = async (req, res) => {
             categories,
             review,
             watchOn,
+            trailer,
+            family
         });
         const savedMovie = await movie.save();
         res.status(201).json(savedMovie);
@@ -107,6 +109,7 @@ const singleMovie = async (req, res) => {
     }
 };
 
+
 const deleteMovie = async (req, res) => {
     try {
         await Movie.findByIdAndDelete(req.params.id);
@@ -128,5 +131,6 @@ module.exports = {
     getFilterMovies,
     getTopRatedMovies,
     singleMovie,
-    deleteMovie
+    deleteMovie, 
+    
 };

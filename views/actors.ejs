@@ -12,20 +12,10 @@
   >
 
   <title>Actor Movies</title>
+  <link rel="stylesheet" href="/css/main.css">
 
   <style>
-  *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:system-ui,sans-serif;
-}
 
-body{
-  background:#0f172a;
-  color:white;
-  padding:20px;
-}
 
 #actorSearch{
   width:100%;
@@ -67,8 +57,16 @@ h1{
   text-align:center;
   margin-bottom:20px;
 }
+/*tablet*/
+@media(max-width:700px){
+  #actorBox{
+    grid-template-columns:repeat(4,1fr);
+  }
+}
 
-@media(max-width:600px){
+/*mobile*/
+
+@media(max-width:400px){
   #actorBox{
     grid-template-columns:repeat(2,1fr);
   }
@@ -78,10 +76,12 @@ h1{
 
 </head>
 <body>
+  <%- include('partials/header') %>
   <input type="search" id="actorSearch" placeholder="Seach Actors...">
   <div id="actorBox"></div>
 
   <div id="movieGrid"></div>
+  <%- include('partials/footer') %>
 
   <script>
 

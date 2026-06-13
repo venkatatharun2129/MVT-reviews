@@ -16,6 +16,9 @@ const app = express();
 //app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
+app.set("view engine", "ejs");
+app.set("views", "./views");
+
 
 // CORS (important)
 app.use(
@@ -32,23 +35,29 @@ app.use("/api/admin", adminRoute);
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "html", "index.html"));
+    res.render("index");
 });
 
 app.get("/movie/:id", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "html", "movie.html"));
+    res.render("movie");
 });
 app.get("/actors/:id/movies", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "html", "actorMovies.html"));
+    res.render("actorMovies");
 });
 app.get("/actors", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "html", "actors.html"));
-});
-app.get("/filter", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "html", "filter.html"));
+    res.render("actors");
 });
 app.get("/top-rated", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "html", "top-rated.html"));
+    res.render("top-rated");
+});
+app.get("/about-contact", (req, res) => {
+    res.render("about-contact")
+});
+app.get("/filter", (req, res) => {
+  res.render("filter");
+});
+app.get("/legal", (req, res) => {
+  res.render("legal");
 });
 
 

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Top Rated Movies</title>
+  <link rel="stylesheet" href="/css/main.css">
+
+  <style>
+h1{
+  text-align:center;
+  padding:20px;
+  font-size:2rem;
+}
+
+/* MOVIE GRID */
+#movies{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+  padding:20px;
+}
+
+/* CARD */
+.movie-card{
+  text-decoration:none;
+  color:white;
+  background:#1c1c1c;
+  border-radius:12px;
+  overflow:hidden;
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+
+.movie-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 25px rgba(0,0,0,.6);
+}
+
+.movie-card img{
+  width:100%;
+  aspect-ratio:2/3;
+  object-fit:cover;
+  display:block;
+}
+
+.movie-info{
+  padding:12px;
+}
+
+.movie-info h1{
+  font-size:1rem;
+  margin:0 0 8px;
+  text-align:left;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.rating{
+  font-size:.9rem;
+  color:#ffd700;
+}
+
+/* TABLETS */
+@media (max-width: 992px){
+  #movies{
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px){
+  h1{
+    font-size:1.6rem;
+    padding:15px;
+  }
+
+  #movies{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    padding:12px;
+  }
+
+  .movie-info{
+    padding:10px;
+  }
+
+  .movie-info h1{
+    font-size:.9rem;
+  }
+
+  .rating{
+    font-size:.8rem;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px){
+  #movies{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    padding:10px;
+  }
+
+  h1{
+    font-size:1.4rem;
+  }
+
+  .movie-info h1{
+    font-size:.85rem;
+  }
+}
+</style>
+</head>
+
+<body>
+  <%- include('partials/header') %>
+
+<h1>🏆 Top Rated Movies</h1>
+<div id="movies"></div>
+<%- include('partials/footer') %>
+
+<script>
+async function loadTopRated() {
+  const res = await fetch("/api/movies/top-rated");
+  const movies = await res.json();
+
+  document.getElementById("movies").innerHTML = movies.map(movie => `
+    <a href="/movie/${movie._id}" class="movie-card">
+      <img src="${movie.poster}" alt="${movie.title}" referrerpolicy="no-referrer">
+      <div class="movie-info">
+        <h1>${movie.title}</h1>
+        <p class="rating">⭐ ${movie.rating?.toFixed(1) || "N/A"}/10</p>
+      </div>
+    </a>
+  `).join("");
+}
+
+loadTopRated();
+</script>
+
+</body>
+</html>

@@ -51,7 +51,8 @@ const movieSchema = new mongoose.Schema(
         trailer: {
             type: String
         },
-        family: String
+        family: String,
+        like: Number
     },
 
     {
