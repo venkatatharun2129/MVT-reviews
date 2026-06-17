@@ -20,26 +20,40 @@ const addMovie = async (req, res) => {
             poster,
             rating,
             year,
+            runtime,
+            released,
+            type,
+            country,
+            director,
             cast,
             language,
             categories,
             review,
+            plot,
             watchOn,
             trailer,
-            family
+            family,
+            awards
         } = req.body;
         const movie = new Movie({
             title,
             poster,
             rating,
             year,
+            runtime,
+            released,
+            type,
+            country,
+            director,
             cast,
             language,
             categories,
             review,
+            plot,
             watchOn,
             trailer,
-            family
+            family,
+            awards
         });
         const savedMovie = await movie.save();
         res.status(201).json(savedMovie);

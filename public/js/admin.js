@@ -45,17 +45,24 @@ movieForm.addEventListener("submit", async e => {
         poster: document.getElementById("poster").value,
         rating: document.getElementById("rating").value,
         year: document.getElementById("year").value,
+        runtime: document.getElementById("runtime").value,
+        released: document.getElementById("released").value,
+        type: document.getElementById("type").value,
+        country: document.getElementById("country").value,
+        director: document.getElementById("director").value,
         cast: selectedCastIds,
         language: document.getElementById("language").value,
         categories: Array.from(categorySelect.selectedOptions).map(
             option => option.value
         ),
         review: document.getElementById("review").value,
+        plot: document.getElementById("plot").value,
         watchOn: Array.from(selectWatchOn.selectedOptions).map(
             option => option.value
         ),
         trailer: document.getElementById("trailer").value,
-        family: document.getElementById("family").value
+        family: document.getElementById("family").value,
+        awards: document.getElementById("awards").value,
     };
 
     await fetch("/api/movies", {
@@ -161,6 +168,75 @@ async function checkAdmin() {
         }
     } catch (err) {
 window.location.href = "/api/admin/login";
+    }
+}
+async function searchTrailer() {
+    const title = document.getElementById("title").value;
+
+    if (!title) {
+        alert("Enter movie title first");
+        return;
+    }
+
+    const res = await fetch(
+        `/api/trailer/search?movie=${encodeURIComponent(title)}`
+    );
+
+    const data = await res.json();
+
+    if (data.success) {
+        document.getElementById("trailer").value = data.trailerUrl;
+
+        document.getElementById("trailerPreview").innerHTML = `
+            <iframe
+                width="400"
+                height="250"
+                src="${data.trailerUrl}"
+                allowfullscreen>
+            </iframe>
+        `;
+    } else {
+        alert("Trailer not found");
+    }
+}
+async function fullMovie() {
+    const title = document.getElementById("title").value;
+
+    if (!title) {
+        alert("Enter movie name first");
+        return;
+    }
+
+    const res = await fetch(
+        `/api/poster/full?movie=${encodeURIComponent(title)}`
+    );
+
+    const data = await res.json();
+
+    if (data.success) {
+        document.getElementById("poster").value = data.data.Poster;
+        document.getElementById("year").value = data.data.Year;
+        document.getElementById("runtime").value = data.data.Runtime;
+        document.getElementById("released").value = data.data.Released;
+        document.getElementById("type").value = data.data.Type;
+        document.getElementById("country").value = data.data.Country;
+        document.getElementById("director").value = data.data.Director;
+        document.getElementById("awards").value = data.data.Awards;
+        document.getElementById("plot").value = data.data.Plot;
+
+        document.getElementById("fullMovie").innerHTML = `
+        <pre style="
+        background:#111;
+        color:#0f0;
+        padding:10px;
+        border-radius:10px;
+        overflow:auto;
+    ">
+        ${JSON.stringify(data, null, 2)}
+    </pre>
+        `;
+    } else {
+        alert("Poster not found");
     }
 }
 

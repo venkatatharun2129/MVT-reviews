@@ -33,92 +33,128 @@
                 try {
                     const response = await fetch(`/api/movies/${movieId}`);
                     const movie = await response.json();
+                   
+singleMovie.innerHTML = `
+<div class="movie-container">
 
-                    singleMovie.innerHTML = `
+  <!-- TOP SECTION -->
+  <div class="top-section">
 
-                        <div class="movie-card">
+    <div class="poster">
+      <img src="${movie.poster}" alt="${movie.title}" referrerpolicy="no-referrer">
+    </div>
 
-                        <img src="${movie.poster}" alt="${movie.title}" referrerpolicy="no-referrer">
+    <div class="info">
 
-                        <div class="movie-info">
+      <h1 class="title">${movie.title}</h1>
 
-                        <h3>${movie.title}</h3>
+      <div class="meta">
+        <span class="badge rating">⭐ ${movie.rating}/10</span>
+        <a href="/filter?year=${movie.year}" class="badge">${movie.year}</a>
+        <a href="/filter?language=${movie.language}" class="badge">${movie.language}</a>
+      </div>
+<div class="section">
+  <h3>Description</h3>
 
-                        <div class="meta">
-                        <span class="badge rating">⭐ ${movie.rating}/10</span>
-                        <a href="/filter?year=${movie.year}" class="badge">
-                        ${movie.year}
-                        </a>
+  <p class="review-box">
+    ${
+      (movie.plot || "No description available.")
+        .split(".")
+        .filter(sentence => sentence.trim().length > 0)
+        .map(sentence => sentence.trim() + ".")
+        .join("<br><br>")
+    }
+  </p>
+</div>
+      <div class="quick-details">
 
-                        <a href="/filter?language=${movie.language}" class="badge">
-                        ${movie.language}
-                        </a>
-                        </div>
+        <div class="card">⏱️ <b>Runtime</b><br>${movie.runtime || "N/A"}</div>
+        <div class="card">📅 <b>Released</b><br>${movie.released || movie.year || "N/A"}</div>
+        <div class="card">🎬 <b>Type</b><br>${movie.type || "Movie"}</div>
+        <div class="card">🌍 <b>Country</b><br>${movie.country || "N/A"}</div>
+        <div class="card">🎥 <b>Director</b><br>${movie.director || "N/A"}</div>
+        <div class="card">🏆 <b>Awards</b><br>${movie.awards || "N/A"}</div>
 
-                        <div class="section">
-                        <h4>Categories</h4>
+      </div>
 
-                        <div class="category-list">
-                        ${
-                            movie.categories?.length
-                                ? movie.categories
-                                      .map(
-                                          cat =>
-                                              `<a href="/filter?category=${cat}">${cat}</a>`
-                                      )
-                                      .join("")
-                                : "No Category"
-                        }
-                        </div>
-                        </div>
+    </div>
+  </div>
 
-                        <div class="section">
-                        <h4>Cast</h4>
+  <!-- CATEGORY -->
+  <div class="section">
+    <h3>Categories</h3>
+    <div class="tag-list">
+    ${
+  movie.categories?.length
+    ? movie.categories.map(cat =>
+        `<a class="tag" href="/filter?category=${encodeURIComponent(cat)}">${cat}</a>`
+      ).join("")
+    : "<p>No categories</p>"
+}
+    </div>
+  </div>
 
-                        <div class="cast-list">
-                        ${
-                            movie.cast?.length
-                                ? movie.cast
-                                      .map(
-                                          actor =>
-                                              `<a href="/actors/${actor._id}/movies">${actor.name}</a>`
-                                      )
-                                      .join("")
-                                : "No Cast"
-                        }
-                        </div>
-                        </div>
+  <!-- CAST -->
+  <div class="section">
+    <h3>Cast</h3>
+    <div class="tag-list">
+      ${
+        movie.cast?.length
+          ? movie.cast.map(actor =>
+              `<a class="tag link" href="/actors/${actor._id}/movies">${actor.name}</a>`
+            ).join("")
+          : "<p>No cast available</p>"
+      }
+    </div>
+  </div>
 
-                        <div class="section">
-                        <h4>Review</h4>
-                        <p class="review">${movie.review || "No Review Available"}</p>
+  <!-- REVIEW -->
+  <div class="section">
+    <h3>Review</h3>
+    <p class="review-box">${movie.review || "No review available."}</p>
+  </div>
 
-                        </div>
-                       <div class="watch-platforms">
-  ${
-    movie.watchOn?.length
-      ? movie.watchOn
-          .map(platform => `
+  <!-- OTT -->
+  <div class="section">
+    <h3>Watch On</h3>
+    <div class="platforms">
+      ${
+        movie.watchOn?.length
+          ? movie.watchOn.map(platform => `
             <a class="platform-btn" href="${platformLinks[platform] || "#"}" target="_blank">
-              <span class="dot"></span>
               ${platform}
             </a>
-          `)
-          .join("")
-      : `<p class="not-available">Not available on OTT platforms</p>`
-  }
+          `).join("")
+          : "<p>Not available on OTT platforms</p>"
+      }
+    </div>
+  </div>
+
+  <!-- TRAILER -->
+  <div class="section">
+    <h3>Trailer</h3>
+    ${
+      movie.trailer
+        ? `<iframe class="trailer"
+            src="${movie.trailer}"
+            frameborder="0"
+            allowfullscreen></iframe>`
+        : "<p>Trailer not available</p>"
+    }
+  </div>
+
 </div>
-
-                        </div>
-
-                        </div>
-                        `;
+`;
+                    
+                        
                 } catch (err) {
                     console.log(err);
                 }
             }
 
             fetchMovie();
+            
+
         </script>
     </body>
 </html>

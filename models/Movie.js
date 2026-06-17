@@ -20,6 +20,12 @@ const movieSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
+        runtime:String,
+        released:String,
+        type:String,
+        country:String,
+        
+        director:String,
 
         cast: [
             {
@@ -42,6 +48,7 @@ const movieSchema = new mongoose.Schema(
             type: String,
             default: ""
         },
+        plot:String,
         watchOn: [
             {
                 type: String
@@ -52,7 +59,10 @@ const movieSchema = new mongoose.Schema(
             type: String
         },
         family: String,
-        like: Number
+        awards:String,
+        
+        like: Number,
+        
     },
 
     {
