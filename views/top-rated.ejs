@@ -131,7 +131,7 @@ async function loadTopRated() {
       <img src="${movie.poster}" alt="${movie.title}" referrerpolicy="no-referrer">
       <div class="movie-info">
         <h1>${movie.title}</h1>
-        <p class="rating">⭐ ${movie.rating?.toFixed(1) || "N/A"}/10</p>
+        <p class="rating">⭐ ${movie.rating || "N/A"}/10</p>
       </div>
     </a>
   `).join("");

@@ -4,7 +4,7 @@ const getMovie = async (req, res) => {
     try {
         const movies = await Movie.find()
             .populate("cast")
-          
+
             .sort({ createdAt: -1 });
 
         res.json(movies);
@@ -15,8 +15,19 @@ const getMovie = async (req, res) => {
 
 const addMovie = async (req, res) => {
     try {
-        const { title, poster, rating, year, cast, language,  categories, review, watchOn, trailer, family } =
-            req.body;
+        const {
+            title,
+            poster,
+            rating,
+            year,
+            cast,
+            language,
+            categories,
+            review,
+            watchOn,
+            trailer,
+            family
+        } = req.body;
         const movie = new Movie({
             title,
             poster,
@@ -52,50 +63,47 @@ const getMoviesByActor = async (req, res) => {
     }
 };
 
- const getFilterMovies = async (req, res) => {
-  try {
-    const { category, year, language } = req.query;
+const getFilterMovies = async (req, res) => {
+    try {
+        const { category, year, language } = req.query;
 
-    let filter = {};
+        let filter = {};
 
-    if (category) {
-  const cleanCategory = category.replace(/-/g, " ");
-  filter.categories = { $in: [cleanCategory] };
-}
+        if (category) {
+            filter.categories = { $in: [category] };
+        }
+        if (year) {
+            filter.year = Number(year);
+        }
 
-    if (year) {
-      filter.year = Number(year);
+        if (language) {
+            filter.language = language;
+        }
+
+        const movies = await Movie.find(filter);
+
+        res.status(200).json(movies);
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
     }
-
-    if (language) {
-      filter.language = language;
-    }
-
-    const movies = await Movie.find(filter);
-
-    res.status(200).json(movies);
-  } catch (error) {
-    res.status(500).json({
-      message: error.message
-    });
-  }
 };
 // 🏆 Top Rated Movies (Only 10)
 const getTopRatedMovies = async (req, res) => {
-  try {
-    const movies = await Movie.find()
-      .sort({ rating: -1 }) // highest first
-      .limit(10);           // only 10 movies
+    try {
+        const movies = await Movie.find()
+            .sort({ rating: -1 }) // highest first
+            .limit(10); // only 10 movies
 
-    res.status(200).json(movies);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+        res.status(200).json(movies);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 const singleMovie = async (req, res) => {
     try {
-        const movie = await Movie.findById(req.params.id)
-            .populate("cast")
+        const movie = await Movie.findById(req.params.id).populate("cast");
 
         if (!movie) {
             return res.status(404).json({ message: "Movie not found" });
@@ -108,7 +116,6 @@ const singleMovie = async (req, res) => {
         });
     }
 };
-
 
 const deleteMovie = async (req, res) => {
     try {
@@ -131,6 +138,5 @@ module.exports = {
     getFilterMovies,
     getTopRatedMovies,
     singleMovie,
-    deleteMovie, 
-    
+    deleteMovie
 };

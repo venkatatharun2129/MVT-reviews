@@ -21,12 +21,22 @@ const showMovies= async(movies)=>{
   try{
         movieGrid.innerHTML = "";
 movies.forEach(movie => {
-    movieGrid.innerHTML += `
-        <a href="/movie/${movie._id}" class="movie-card">
-    <img src="${movie.poster}" alt="${movie.title}" referrerpolicy="no-referrer">
+        movieGrid.innerHTML += `
+       <a href="/movie/${movie._id}" class="movie-card">
+  <img
+    src="${movie.poster}"
+    alt="${movie.title}"
+    referrerpolicy="no-referrer"
+  >
+
+  <div class="movie-info">
     <h3>${movie.title}</h3>
-    <p>⭐ ${movie.rating?.toFixed(1) || "N/A"}/10</p>
-</a>`
+    <p class="rating">
+      ⭐ ${movie.rating?.toFixed(1) || "N/A"}/10
+    </p>
+  </div>
+</a>`;
+
 });
     } catch (err) {
         console.log(err);

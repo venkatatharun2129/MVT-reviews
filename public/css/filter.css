@@ -54,7 +54,7 @@ h2 {
 .filters select,
 .filters button {
   flex: 1;
-  min-width: 150px;
+  min-width: 350px;
   padding: 12px;
   border: none;
   border-radius: 10px;
