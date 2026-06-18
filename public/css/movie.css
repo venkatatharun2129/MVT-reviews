@@ -1,152 +1,168 @@
 
 
 /* =========================
-   MAIN CONTAINER
+   PAGE WRAPPER
 ========================= */
 .movie-container {
     max-width: 1200px;
     margin: auto;
-    padding: 20px;
+    padding: 24px;
 }
 
 /* =========================
-   TOP SECTION
+   TOP LAYOUT (CLEAN GRID)
 ========================= */
 .top-section {
     display: flex;
-    gap: 25px;
+    gap: 26px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    align-items: flex-start;
 }
 
-/* POSTER */
+/* =========================
+   POSTER (SOFT SHADOW ONLY)
+========================= */
 .poster img {
     width: 280px;
-    border-radius: 14px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    transition: 0.3s;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
 }
 
-.poster img:hover {
-    transform: scale(1.03);
-}
-
-/* INFO */
+/* =========================
+   INFO AREA
+========================= */
 .info {
     flex: 1;
     min-width: 280px;
 }
 
 .title {
-    font-size: 34px;
+    font-size: 32px;
+    font-weight: 600;
     margin-bottom: 10px;
+    letter-spacing: 0.3px;
 }
 
 /* =========================
-   BADGES (YEAR, LANGUAGE, RATING)
+   BADGES (MINIMAL PILLS)
 ========================= */
 .meta {
     display: flex;
-    flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
 }
 
-.badge {
-    background: #1f1f1f;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    color: #fff;
+.rating, .year, .language{
+    border: 1px solid #2a2f36;
+    padding: 5px 12px;
+    border-radius: 18px;
+    font-size: 13px;
     text-decoration: none;
-    transition: 0.2s;
+    color:#ffffff;
 }
-
-.badge:hover {
-    background: #ff3d00;
+.rating{
+  background-color: red;
+}
+.year{
+  background-color: green;
+}
+.language{
+  background-color: #831af6;
 }
 
 /* =========================
-   SECTIONS
-========================= */
-.section {
-    margin-top: 30px;
-}
-
-.section h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    border-left: 4px solid #ff3d00;
-    padding-left: 10px;
-}
-
-
-/* =========================
-   DESCRIPTION / REVIEW BOX
+   DESCRIPTION BOX (CLEAN BLOCK)
 ========================= */
 .review-box {
-    background: #161616;
-    padding: 15px;
-    border-radius: 12px;
-    border: 1px solid #2a2a2a;
-    line-height: 1.6;
+    background: #1a1d21;
+    border: 1px solid #2a2f36;
+    padding: 14px;
+    border-radius: 10px;
+    line-height: 1.7;
+    margin-top: 10px;
+    color: #cfcfcf;
 }
 
 /* =========================
-   QUICK DETAILS CARDS
+   QUICK DETAILS (SOFT CARDS)
 ========================= */
 .quick-details {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 16px;
 }
 
 .card {
-    background: #1b1b1b;
+    background: #1a1d21;
+    border: 1px solid #2a2f36;
     padding: 12px;
-    border-radius: 12px;
-    border: 1px solid #2a2a2a;
-    font-size: 14px;
-    transition: 0.2s;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-    border-color: #ff3d00;
+    border-radius: 10px;
+    font-size: 13px;
 }
 
 /* =========================
-   TAGS (CATEGORY / CAST)
+   SECTION HEADINGS (YOUR UNIQUE STYLE)
+========================= */
+.section {
+    margin-top: 32px;
+}
+
+.section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #ffffff;
+    position: relative;
+    padding-left: 10px;
+}
+
+.section h3::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 3px;
+    height: 18px;
+    background: #ff0303;
+    border-radius: 2px;
+}
+
+/* =========================
+   TAGS (CLEAN FLOAT STYLE)
 ========================= */
 .tag-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
 }
 
 .tag {
-  text-decoration: none;
-    background: #1f1f1f;
+    background: #00aeff;
+    border: 1px solid #2a2f36;
     padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 13px;
+    border-radius: 16px;
+    font-size: 12.5px;
+    color: #ffffff;
+    text-decoration: none;
     transition: 0.2s;
-    color: #fff;
 }
 
 .tag:hover {
-    background: #ff3d00;
-    cursor: pointer;
-}
-
-.tag.link {
-    text-decoration: none;
-    color: #fff;
+    background: #2a2f36;
 }
 
 /* =========================
-   OTT PLATFORMS
+   CAST LINK STYLE
+========================= */
+.tag.link {
+  background-color: yellow;
+    color: #4c0808;
+}
+
+/* =========================
+   OTT BUTTONS (SUBTLE COLOR STRIP)
 ========================= */
 .platforms {
     display: flex;
@@ -155,17 +171,17 @@
 }
 
 .platform-btn {
-    background: linear-gradient(135deg, #ff3d00, #ff6a00);
+    background: #e99215;
+    border: 1px solid #2a2f36;
     padding: 8px 14px;
     border-radius: 10px;
-    color: #fff;
+    font-size: 13px;
+    color: #ffffff;
     text-decoration: none;
-    font-size: 14px;
-    transition: 0.2s;
 }
 
 .platform-btn:hover {
-    transform: scale(1.05);
+    border-color: #6c7bff;
 }
 
 /* =========================
@@ -173,14 +189,14 @@
 ========================= */
 .trailer {
     width: 100%;
-    height: 450px;
+    height: 420px;
     border-radius: 12px;
-    border: none;
+    border: 1px solid #2a2f36;
     margin-top: 10px;
 }
 
 /* =========================
-   RESPONSIVE DESIGN
+   RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
     .top-section {
@@ -203,6 +219,6 @@
     }
 
     .trailer {
-        height: 250px;
+        height: 240px;
     }
 }

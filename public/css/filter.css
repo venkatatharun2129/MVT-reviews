@@ -83,7 +83,7 @@ h2 {
 ========================= */
 #movieList {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 12px;
 }
 
@@ -214,13 +214,5 @@ h2 {
   .filters button {
     padding: 10px;
     font-size: 0.9rem;
-  }
-}
-
-/* Large Screens */
-@media (min-width: 1024px) {
-  #movieList {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
   }
 }
