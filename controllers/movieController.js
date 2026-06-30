@@ -1,6 +1,6 @@
 const Movie = require("../models/Movie");
 const asyncHandler = require("../utils/asyncHandler");
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorResponse = require("../utils/errorResponse");
 
 
 // Add Movie
