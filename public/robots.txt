@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://mvt-reviews.onrender.com/sitemap.xml
+Sitemap: https://www.mvtreviews.free.je/sitemap.xml
