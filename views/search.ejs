@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Search: <%= query %> | MVT Reviews</title>
+    <title>Search "<%= query %>" | MVT Reviews</title>
 
-<meta name="description"
-      content="Search results for <%= query %> on MVT Reviews.">
+<meta name="description" content="Search results for '<%= query %>'. Find movies, web series, reviews, ratings, cast, trailers and OTT information on MVT Reviews.">
+
+<link rel="canonical" href="https://www.mvtreviews.free.je/search?q=<%= encodeURIComponent(query) %>">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
 

@@ -2,8 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title><%= movie.title %> (<%= movie.year %>) Review, Rating & Cast | MVT Reviews</title>
+
+<meta name="description" content="<%= movie.title %> review, IMDb rating <%= movie.rating %>/10, cast, story, trailer, screenshots and OTT platform details.">
+
+<link rel="canonical" href="https://www.mvtreviews.free.je/movie/<%= movie.slug || movie._id %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= movie.title %> Review | MVT Reviews</title>
+   
 
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/movie.css">
