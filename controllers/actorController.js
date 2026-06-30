@@ -44,7 +44,6 @@ const singleActor = async (req, res) => {
         const movies = await Movie.find({
             cast: req.params.id
         }).populate("cast");
-
         res.json({ actor, movies });
     } catch (err) {
         res.status(500).json({

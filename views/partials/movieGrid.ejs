@@ -1,0 +1,15 @@
+<% movies.forEach(movie => {
+  %>
+  <div class="movie-card">
+    <a href="/movie/<%= movie._id %>">
+      <div class="poster">
+        <img src="<%= movie.poster %>" alt="<%= movie.title %>">
+        <span class="rating">⭐ <%= movie.rating %></span>
+      </div>
+
+      <h3><%= movie.title %></h3>
+    </a>
+  </div>
+
+  <%
+}) %>

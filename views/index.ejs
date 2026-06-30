@@ -1,7 +1,7 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8" />
+    <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>MVT Reviews - Latest Movie Reviews, Ratings, Trailers & News</title>
 
@@ -25,14 +25,59 @@
 
 <link rel="stylesheet" href="/css/style.css" />
 <link rel="stylesheet" href="/css/main.css">
+    <title>MVT Reviews</title>
 </head>
 <body>
-<%- include('partials/header') %>
-<section class="search-section">
-<input type="search" id="movieSearch" placeholder="Search Movies..." />
+  <%- include('partials/header') %>
 
-<div id="searchResults"></div>
-</section>
+
+<!-- =================
+search-section
+================== -->
+
+<form action="/search" method="GET" class="search-form">
+    <input
+        type="text"
+        name="q"
+        placeholder="Search movies, series..."
+        value="<%= typeof query !== 'undefined' ? query : '' %>"
+        required
+    >
+    <button type="submit">🔍</button>
+</form>
+<div class="movie-list"></div>
+<script>
+const input = document.querySelector('input[name="q"]');
+const suggestions = document.querySelector(".movie-list");
+
+let timer;
+
+input.addEventListener("input", () => {
+    clearTimeout(timer);
+
+    const q = input.value.trim();
+
+    if (!q) {
+        suggestions.innerHTML = "";
+        return;
+    }
+
+    timer = setTimeout(async () => {
+        const response = await fetch(`/search?q=${encodeURIComponent(q)}`, {
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        });
+
+        const html = await response.text();
+        suggestions.innerHTML = html;
+    }, 300);
+});
+</script>
+<!-- =================
+hero-section
+================== -->
+
 
 <section class="hero">
 
@@ -46,109 +91,133 @@ Reviews, ratings, trailers and trending cinema updates.
 <a href="/filter" class="explore">Explore Movies</a>
 </div>
 </section>
-
-<!--category-section -->
+<!-- =================
+category-section
+================== -->
 
 <section class="category-section">
-<button onclick="showDiv()">Movie Categories 🔽</button>
-<div class="categoriesDiv">
+    <button onclick="showDiv()">Movie Categories 🔽</button>
 
-<a href="/filter?category=Action">Action</a>
-<a href="/filter?category=Action-Adventure">Action Adventure</a>
-<a href="/filter?category=Action-Comedy">Action Comedy</a>
-<a href="/filter?category=Action-Thriller">Action Thriller</a>
-
-<a href="/filter?category=Adventure">Adventure</a>
-<a href="/filter?category=Adventure-Comedy">Adventure Comedy</a>
-<a href="/filter?category=Adventure-Drama">Adventure Drama</a>
-
-<a href="/filter?category=Animation">Animation</a>
-<a href="/filter?category=Biography">Biography</a>
-<a href="/filter?category=Biographical-Drama">Biographical Drama</a>
-
-<a href="/filter?category=Coming-of-Age">Coming of Age</a>
-<a href="/filter?category=Comedy">Comedy</a>
-<a href="/filter?category=Crime">Crime</a>
-<a href="/filter?category=Crime-Thriller">Crime Thriller</a>
-
-<a href="/filter?category=Dark-Comedy">Dark Comedy</a>
-<a href="/filter?category=Detective">Detective</a>
-<a href="/filter?category=Disaster">Disaster</a>
-<a href="/filter?category=Documentary">Documentary</a>
-<a href="/filter?category=Drama">Drama</a>
-<a href="/filter?category=Epic">Epic</a>
-
-<a href="/filter?category=Family">Family</a>
-<a href="/filter?category=Family-Drama">Family Drama</a>
-<a href="/filter?category=Fantasy">Fantasy</a>
-<a href="/filter?category=Fantasy-Adventure">Fantasy Adventure</a>
-
-<a href="/filter?category=Heist">Heist</a>
-<a href="/filter?category=Historical-Drama">Historical Drama</a>
-<a href="/filter?category=History">History</a>
-<a href="/filter?category=Horror">Horror</a>
-<a href="/filter?category=Kids">Kids</a>
-
-<a href="/filter?category=Legal-Drama">Legal Drama</a>
-<a href="/filter?category=Martial-Arts">Martial Arts</a>
-<a href="/filter?category=Medical-Drama">Medical Drama</a>
-<a href="/filter?category=Mockumentary">Mockumentary</a>
-
-<a href="/filter?category=Music">Music</a>
-<a href="/filter?category=Musical">Musical</a>
-<a href="/filter?category=Mystery">Mystery</a>
-<a href="/filter?category=Noir">Noir</a>
-<a href="/filter?category=Parody">Parody</a>
-
-<a href="/filter?category=Political-Drama">Political Drama</a>
-<a href="/filter?category=Psychological-Thriller">Psychological Thriller</a>
-<a href="/filter?category=Road-Movie">Road Movie</a>
-
-<a href="/filter?category=Romance">Romance</a>
-<a href="/filter?category=Romantic-Comedy">Romantic Comedy</a>
-<a href="/filter?category=Romantic-Thriller">Romantic Thriller</a>
-
-<a href="/filter?category=Sci-Fi">Sci-Fi</a>
-<a href="/filter?category=Science-Fantasy">Science Fantasy</a>
-
-<a href="/filter?category=Sport">Sport</a>
-<a href="/filter?category=Spy">Spy</a>
-<a href="/filter?category=Superhero">Superhero</a>
-<a href="/filter?category=Supernatural">Supernatural</a>
-<a href="/filter?category=Survival">Survival</a>
-
-<a href="/filter?category=Teen">Teen</a>
-<a href="/filter?category=Thriller">Thriller</a>
-<a href="/filter?category=Vampire">Vampire</a>
-
-<a href="/filter?category=War">War</a>
-<a href="/filter?category=War-Drama">War Drama</a>
-
-<a href="/filter?category=Western">Western</a>
-<a href="/filter?category=Zombie">Zombie</a>
-</div>
+    <div class="categoriesDiv" id="categories"></div>
 </section>
 
+<script>
+const categories = [
+    "Action",
+    "Action-Adventure",
+    "Action-Comedy",
+    "Action-Thriller",
+    "Adventure",
+    "Adventure-Comedy",
+    "Adventure-Drama",
+    "Animation",
+    "Biography",
+    "Biographical-Drama",
+    "Coming-of-Age",
+    "Comedy",
+    "Crime",
+    "Crime-Thriller",
+    "Dark-Comedy",
+    "Detective",
+    "Disaster",
+    "Documentary",
+    "Drama",
+    "Epic",
+    "Family",
+    "Family-Drama",
+    "Fantasy",
+    "Fantasy-Adventure",
+    "Heist",
+    "Historical-Drama",
+    "History",
+    "Horror",
+    "Kids",
+    "Legal-Drama",
+    "Martial-Arts",
+    "Medical-Drama",
+    "Mockumentary",
+    "Music",
+    "Musical",
+    "Mystery",
+    "Noir",
+    "Parody",
+    "Political-Drama",
+    "Psychological-Thriller",
+    "Road-Movie",
+    "Romance",
+    "Romantic-Comedy",
+    "Romantic-Thriller",
+    "Sci-Fi",
+    "Science-Fantasy",
+    "Sport",
+    "Spy",
+    "Superhero",
+    "Supernatural",
+    "Survival",
+    "Teen",
+    "Thriller",
+    "Vampire",
+    "War",
+    "War-Drama",
+    "Western",
+    "Zombie"
+];
 
-<section class="movies-section"
-id="trendingMovies">
-<h2>Trending Reviews</h2>
+document.getElementById("categories").innerHTML =
+    categories.map(cat =>
+        `<a href="/filter?category=${encodeURIComponent(cat)}">${cat}</a>`
+    ).join("");
+    function showDiv() {
+    document.querySelector(".categoriesDiv").classList.toggle("show");
+}
+</script>
+<!-- =================
+movie-section
+================== -->
 
-<div id="movieGrid"></div>
-</section>
-<%- include('partials/footer') %>
 
-<script src="../js/app.js">
-  <script type="application/ld+json">
+<section class="movie-section">
+
+    <div class="section-header">
+        <h2>Latest Movies</h2>
+        <a href="/movies" class="view-all">View All</a>
+    </div>
+    <div class="movie-slider">
+        
+<%- include('partials/movieGrid') %>
+      </div>
+      
+
+    <div class="section-header">
+        <h2>Latest Series</h2>
+        <a href="/series" class="view-all">View All</a>
+    </div>
+  <div class="movie-slider">
+    
+<%- include('partials/movieGrid', { movies: series }) %>
+  </div>
+      <div class="section-header">
+        <h2>Top Rated</h2>
+        <a href="/top-rated" class="view-all">View All</a>
+    </div>
+  <div class="movie-slider">
+    
+<%- include('partials/movieGrid', { movies: topmovies }) %>
+  </div>
+      
+
+    <%- include('partials/footer') %>
+    
+      <script type="application/ld+json">
 {
   "@context":"https://schema.org",
   "@type":"WebSite",
   "name":"MVT Reviews",
   "url":"https://mvt-reviews.onrender.com/"
 }
-</script>
   
 
 </script>
+
 </body>
 </html>

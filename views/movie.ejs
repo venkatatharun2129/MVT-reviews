@@ -1,160 +1,108 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Movie Details</title>
-        <link rel="stylesheet" href="/css/movie.css" />
-        <link rel="stylesheet" href="/css/main.css">
-    </head>
-    <body>
-      <%- include('partials/header') %>
-        <div class="singleMovie"></div>
-        <%- include('partials/footer') %>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= movie.title %> Review | MVT Reviews</title>
 
-        <script>
-            const movieId = window.location.pathname.split("/").pop();
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/movie.css">
+</head>
+<body>
 
-            const singleMovie = document.querySelector(".singleMovie");
-            //platformLinks
-            const platformLinks = {
-                YouTube: "https://www.youtube.com",
-                Netflix: "https://www.netflix.com",
-                "Amazon Prime Video": "https://www.primevideo.com",
-                JioHotstar: "https://www.jiohotstar.com",
-                Aha: "https://www.aha.video",
-                ZEE5: "https://www.zee5.com",
-                SonyLIV: "https://www.sonyliv.com",
-                JioTv:"https://www.jiotv.com",
-                "Sun NXT":"https://www.sunnxt.com"
-            };
+<%- include("partials/header") %>
 
-            async function fetchMovie() {
-                try {
-                    const response = await fetch(`/api/movies/${movieId}`);
-                    const movie = await response.json();
-                   
-singleMovie.innerHTML = `
 <div class="movie-container">
 
-  <!-- TOP SECTION -->
-  <div class="top-section">
+    <div class="movie-top">
 
-    <div class="poster">
-      <img src="${movie.poster}" alt="${movie.title}" referrerpolicy="no-referrer">
-    </div>
+        <div class="poster-box">
+            <img src="<%= movie.poster %>" alt="<%= movie.title %>">
+        </div>
 
-    <div class="info">
+        <div class="movie-info">
+          <p>Rating: <%= movie.rating %></p>
 
-      <h1 class="title">${movie.title}</h1>
+            <h1><%= movie.title %></h1>
 
-      <div class="meta">
-        <span class="rating">⭐ ${movie.rating}/10</span>
-        <a href="/filter?year=${movie.year}" class="year">${movie.year}</a>
-        <a href="/filter?language=${movie.language}" class="language">${movie.language}</a>
-      </div>
-<div class="section">
-  <h3>Description</h3>
+            <div class="ryl">
+                <p class="rate">⭐ <%= movie.rating %>/10</p>
 
-  <p class="review-box">
-    ${
-      (movie.plot || "No description available.")
-        .split(".")
-        .filter(sentence => sentence.trim().length > 0)
-        .map(sentence => sentence.trim() + ".")
-        .join("<br><br>")
-    }
-  </p>
-</div>
-      <div class="quick-details">
+                <a class="year" href="/filter?year=<%= movie.year %>">
+                    📅 <%= movie.year %>
+                </a>
 
-        <div class="card">⏱️ <b>Runtime</b><br>${movie.runtime || "N/A"}</div>
-        <div class="card">📅 <b>Released</b><br>${movie.released || movie.year || "N/A"}</div>
-        <div class="card">🎬 <b>Type</b><br>${movie.type || "Movie"}</div>
-        <div class="card">🌍 <b>Country</b><br>${movie.country || "N/A"}</div>
-        <div class="card">🎥 <b>Director</b><br>${movie.director || "N/A"}</div>
-        <div class="card">🏆 <b>Awards</b><br>${movie.awards || "N/A"}</div>
+                <a class="language" href="/filter?language=<%= movie.language %>">
+                    🗣 <%= movie.language %>
+                </a>
+            </div>
 
-      </div>
+            <div class="details">
+                <p><strong>⏳ Runtime:</strong> <%= movie.runtime %></p>
+                <p><strong>🎬 Director:</strong> <%= movie.director %></p>
+                <p><strong>🌍 Country:</strong> <%= movie.country %></p>
+                <p><strong>🏆 Awards:</strong> <%= movie.awards %></p>
+                <p><strong>📆 Released:</strong> <%= movie.released %></p>
+            </div>
+
+        </div>
 
     </div>
-  </div>
 
-  <!-- CATEGORY -->
-  <div class="section">
-    <h3>Categories</h3>
-    <div class="tag-list">
-    ${
-  movie.categories?.length
-    ? movie.categories.map(cat =>
-        `<a class="tag" href="/filter?category=${encodeURIComponent(cat)}">${cat}</a>`
-      ).join("")
-    : "<p>No categories</p>"
-}
-    </div>
-  </div>
+    <section>
+        <h2>🎭 Categories</h2>
 
-  <!-- CAST -->
-  <div class="section">
-    <h3>Cast</h3>
-    <div class="tag-list">
-      ${
-        movie.cast?.length
-          ? movie.cast.map(actor =>
-              `<a class="tag link" href="/actors/${actor._id}/movies">${actor.name}</a>`
-            ).join("")
-          : "<p>No cast available</p>"
-      }
-    </div>
-  </div>
-
-  <!-- REVIEW -->
-  <div class="section">
-    <h3>Review</h3>
-    <p class="review-box">${movie.review || "No review available."}</p>
-  </div>
-
-  <!-- OTT -->
-  <div class="section">
-    <h3>Watch On</h3>
-    <div class="platforms">
-      ${
-        movie.watchOn?.length
-          ? movie.watchOn.map(platform => `
-            <a class="platform-btn" href="${platformLinks[platform] || "#"}" target="_blank">
-              ${platform}
+        <% movie.categories?.forEach(category => { %>
+            <a class="chip" href="/filter?category=<%= category %>">
+                <%= category %>
             </a>
-          `).join("")
-          : "<p>Not available on OTT platforms</p>"
-      }
-    </div>
-  </div>
+        <% }) %>
+    </section>
 
-  <!-- TRAILER -->
-  <div class="section">
-    <h3>Trailer</h3>
-    ${
-      movie.trailer
-        ? `<iframe class="trailer"
-            src="${movie.trailer}"
-            frameborder="0"
-            allowfullscreen></iframe>`
-        : "<p>Trailer not available</p>"
-    }
-  </div>
+    <section>
+        <h2>👥 Cast</h2>
+
+        <% movie.cast?.forEach(actor => { %>
+            <a class="chip cast-chip" href="/actor/<%= actor._id %>">
+                <%= actor.name %>
+            </a>
+        <% }) %>
+    </section>
+
+    <section>
+        <h2>📝 Review</h2>
+        <p><%= movie.review %></p>
+    </section>
+
+    <section>
+        <h2>📖 Plot</h2>
+        <p><%= movie.plot %></p>
+    </section>
+
+    <% if(movie.trailer){ %>
+    <section>
+        <h2>▶ Trailer</h2>
+
+        <iframe
+            src="<%= movie.trailer %>"
+            allowfullscreen>
+        </iframe>
+    </section>
+    <% } %>
+
+    <% if(movie.watchOn?.length){ %>
+    <section>
+        <h2>📺 Watch On</h2>
+
+        <div class="platforms">
+            <%- include("partials/platform") %>
+        </div>
+    </section>
+    <% } %>
 
 </div>
-`;
-                    
-                        
-                } catch (err) {
-                    console.log(err);
-                }
-            }
 
-            fetchMovie();
-            
+<%- include("partials/footer") %>
 
-        </script>
-    </body>
+</body>
 </html>

@@ -10,7 +10,7 @@
 
     <body>
         <div class="container">
-            <h1>Movie Admin Panel</h1>
+            <h1>Movie Edit Panel</h1>
 
             <form id="movieForm">
                 <input
@@ -27,7 +27,7 @@
                     id="poster"
                     placeholder="Poster Image URL"
                     required
-                    readonly
+                    
                 />
 
                 <input
@@ -177,14 +177,14 @@
                     type="text"
                     id="trailer"
                     placeholder="Trailer URL"
-                    readonly
+                    
                 />
                 <input type="text" id="family" placeholder="family" />
                 <input
                     type="text"
                     id="awards"
                     placeholder="awards here"
-                    readonly
+                  
                 />
                 
 
@@ -193,23 +193,21 @@
                 </button>
 
                 <div id="trailerPreview"></div>
-                
-                      <button type="button" onclick="fullMovie()">Search Poster</button>
 
+        <button type="button" onclick="fullMovie()">Search Poster</button>
 
                 <div id="posterPreview"></div>
 
-                <button type="submit">Add Movie</button>
+                <button type="submit">Edit Movie</button>
             </form>
 
             <a href="/api/admin/logout" class="logout">Logout</a>
 
-
-        <div id="fullMovie"></div>
             <div id="movieList"></div>
         </div>
 
 
-        <script src="/js/admin.js"></script>
+        <div id="fullMovie"></div>
+        <script src="/js/update.js"></script>
     </body>
 </html>

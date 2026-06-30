@@ -2,67 +2,59 @@
 /* =========================
    🎨 ROOT COLOR SYSTEM
 ========================= */
-:root {
-  --primary: #ffcc00;
-  --primary-dark: #e6b800;
 
-  
-  --bg-soft: #1a1a1a;
-  --bg-card: #1c1c1c;
-
-  --text: #ffffff;
-  --text-muted: #aaaaaa;
-  --text-soft: #cccccc;
-
-  --border: #222;
-  --border-soft: #333;
-
-  --rating: #ffcc00;
-
-  --shadow: 0 10px 20px rgba(0,0,0,0.5);
-  --blur: blur(10px);
-}
 
 
 
 /* =========================
    SEARCH
 ========================= */
-.search-section {
-  text-align: center;
-  padding: 20px;
+.search-form {
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    width: 100%;
+    margin: 20px auto;
+    background: #1f1f1f;
+    border: 2px solid #333;
+    border-radius: 50px;
+    overflow: hidden;
+    transition: 0.3s;
 }
 
-#movieSearch {
-  width: 60%;
-  padding: 12px 15px;
-  border-radius: 30px;
-  border: none;
-  outline: none;
-  font-size: 16px;
+.search-form:focus-within {
+    border-color: #e50914;
+    box-shadow: 0 0 10px rgba(229, 9, 20, 0.3);
 }
 
-#searchResults {
-  width: 60%;
-  margin: 10px auto;
-  background: var(--bg-card);
-  border-radius: 10px;
-  display: none;
-  max-height: 250px;
-  overflow-y: auto;
+.search-form input {
+    flex: 1;
+    padding: 14px 18px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #fff;
+    font-size: 16px;
 }
 
-#searchResults a {
-  display: block;
-  padding: 10px;
-  color: var(--text);
-  text-decoration: none;
-  border-bottom: 1px solid var(--border-soft);
+.search-form input::placeholder {
+    color: #aaa;
 }
 
-#searchResults a:hover {
-  background: var(--bg-soft);
+.search-form button {
+    padding: 14px 22px;
+    border: none;
+    background: #e50914;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s;
 }
+
+.search-form button:hover {
+    background: #c40812;
+}
+
 
 /* =========================
    HERO
@@ -85,19 +77,19 @@
 
 .hero h1 {
   font-size: 40px;
-  color: var(--primary);
+  color: #ffff;
 }
 
 .hero p {
-  color: var(--text-soft);
+  color: #fff;
 }
 
 .explore {
   display: inline-block;
   margin-top: 20px;
   padding: 10px 20px;
-  background: var(--primary);
-  color: #000;
+  background: white;
+  color: black;
   border-radius: 25px;
   text-decoration: none;
   font-weight: bold;
@@ -114,8 +106,8 @@
 
 .category-section button {
   padding: 10px 18px;
-  background: var(--bg-soft);
-  color: var(--text);
+  background: #ff640e;
+  color: black;
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -136,8 +128,8 @@
 
 .categoriesDiv a {
   padding: 8px 12px;
-  background: var(--bg-card);
-  color: var(--text);
+  background:#a6e81b;
+  color: black;
   text-decoration: none;
   border-radius: 20px;
   font-size: 13px;
@@ -145,140 +137,137 @@
 }
 
 .categoriesDiv a:hover {
-  background: var(--primary);
-  color: #000;
+  background:#f6edbd ;
+  color: black;
 }
-
 /* =========================
-   MOVIES GRID
+   MOVIE-SECTION
 ========================= */
-.movies-section {
-  padding: 20px;
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
 }
 
-.movies-section h2 {
-  color: var(--primary);
-  margin: 20px;
+.section-header h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
 }
 
-#movieGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 15px;
+.view-all {
+    color: #00bfff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
-/* =========================
-   MOVIE CARD
-========================= */
-.movie-card {
-  background: var(--bg-soft);
-  border-radius: 12px;
-  overflow: hidden;
-  text-decoration: none;
-  color: var(--text);
-  transition: 0.3s;
+.view-all:hover {
+    color: #8edef3;
 }
 
-.movie-card img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
+.movie-slider {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 10px 0;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
 }
 
-.movie-card h3 {
-  margin: 10px;
-  font-size: 16px;
+.movie-slider::-webkit-scrollbar {
+    height: 8px;
 }
 
-.movie-card p {
-  margin: 0 10px 10px;
-  color: var(--rating);
+.movie-slider::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 10px;
 }
 
-.movie-card:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow);
+.movie-slider .movie-card {
+    flex: 0 0 180px;
 }
 
-/* =========================
-   FOOTER
-========================= */
-.main-footer {
-  text-align: center;
-  padding: 15px;
-  background: #111;
-  color: var(--text-muted);
-  margin-top: 30px;
+ .movie-card a {
+    text-decoration: none;
+    color: #fff;
 }
 
-/* =========================
-   📱 RESPONSIVE DESIGN
-========================= */
-
-/* Tablets */
-@media (max-width: 1024px) {
-  #movieSearch,
-  #searchResults {
-    width: 75%;
-  }
-
-  .hero h1 {
-    font-size: 32px;
-  }
-
-  .movie-card img {
-    height: 220px;
-  }
+ .movie-card img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s;
 }
 
-/* Mobile */
-@media (max-width: 768px) {
-  .main-header {
-    flex-direction: column;
-    gap: 10px;
+ .movie-card:hover img {
+    transform: scale(1.05);
+}
+
+ .movie-card h3 {
+    margin-top: 8px;
     text-align: center;
-  }
+    font-size: 15px;
+}
+/* =========================
+   PAGINATION
+========================= */
 
-  #movieSearch,
-  #searchResults {
-    width: 90%;
-  }
-
-  .hero {
-    height: auto;
-    padding: 60px 15px;
-  }
-
-  .hero h1 {
-    font-size: 26px;
-  }
-
-  .hero p {
-    font-size: 14px;
-  }
-
-  #movieGrid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  }
-
-  .movie-card img {
-    height: 200px;
-  }
+.pagination {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-/* Small Mobile */
-@media (max-width: 480px) {
-
-  .hero h1 {
-    font-size: 22px;
-  }
-
-  .explore {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-
-  .movie-card img {
-    height: 180px;
-  }
+.pagination a {
+    text-decoration: none;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    transition: .2s;
 }
+
+.pagination a:hover {
+    background: #f5f5f5;
+}
+
+.active-page {
+    background: #222;
+    color: #fff !important;
+    border-color: #222;
+}
+
+
+/* =========================
+   MOBILE
+========================= 
+
+@media (max-width: 768px) {
+    .search-form {
+        max-width: 100%;
+        margin: 15px;
+    }
+
+    .search-form input {
+        font-size: 15px;
+        padding: 12px 16px;
+    }
+
+    .search-form button {
+        padding: 12px 18px;
+        font-size: 16px;
+    }
+
+
+
+}
+*/

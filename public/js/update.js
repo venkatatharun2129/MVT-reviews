@@ -9,28 +9,43 @@ const selectedCastIds = [];
 const selectedCastDiv = document.getElementById("selectedCast");
 const categorySelect = document.getElementById("categories");
 const selectWatchOn = document.getElementById("watchOn");
+const movieId = new URLSearchParams(window.location.search).get("id");
+
 
 // FETCH MOVIES
 async function fetchLatestMovie() {
-    const response = await fetch("/api/movies/");
+    const response = await fetch(`/api/movies/${movieId}`);
     const data = await response.json();
+    document.getElementById("title").value = data.movie.title;
+    
+    document.getElementById("poster").value = data.movie.poster;
+document.getElementById("rating").value = data.movie.rating;
+document.getElementById("year").value = data.movie.year;
+document.getElementById("runtime").value = data.movie.runtime;
+document.getElementById("released").value = data.movie.released;
+document.getElementById("type").value = data.movie.type;
+document.getElementById("country").value = data.movie.country;
+document.getElementById("director").value = data.movie.director;
+document.getElementById("language").value = data.movie.language;
+document.getElementById("review").value = data.movie.review;
+document.getElementById("plot").value = data.movie.plot;
+document.getElementById("trailer").value = data.movie.trailer;
+document.getElementById("family").value = data.movie.family;
+document.getElementById("awards").value = data.movie.awards;
 
-    if (!data.movies.length) {
+    if (!movie.length) {
         movieList.innerHTML = "<p>No movies available</p>";
         return;
     }
-movieList.innerHTML=""
+
     // Latest uploaded movie
-    data.movies.forEach(movie=>{
-      movieList.innerHTML += `
+    data.movie.forEach(movie=>{
+      movieList.innerHTML = `
         <div class="movie-card">
             <img src="${movie.poster}" alt="${movie.title}">
             <h2>${movie.title}</h2>
-            <button onclick="editMovie('${movie._id}')">Edit</button>
-            <button onclick="deleteMovie('${movie._id}')">Delete</button>
         </div>
-        
-        
+        </div>
     `;
       
     })
@@ -40,9 +55,6 @@ movieList.innerHTML=""
 
 fetchLatestMovie();
 
-function editMovie(id) {
-    window.location.href = `/api/admin/update?id=${id}`;
-}
 
 // ADD MOVIE
 if(movieForm) {
@@ -74,8 +86,8 @@ movieForm.addEventListener("submit", async e => {
         awards: document.getElementById("awards").value,
     };
 
-    await fetch("/api/movies", {
-        method: "POST",
+    await fetch(`/api/movies/${movieId}`, {
+        method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
@@ -91,30 +103,6 @@ movieForm.addEventListener("submit", async e => {
 
     fetchLatestMovie();
 });
-}
-//delete movie
-async function deleteMovie(id) {
-    const confirmDelete = confirm("Are you sure you want to delete this movie?");
-
-    if (!confirmDelete) return;
-
-    try {
-        const response = await fetch(`/api/movies/${id}`, {
-            method: "DELETE"
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            alert("Movie deleted successfully");
-            location.reload(); // Refresh the movie list
-        } else {
-            alert("Failed to delete movie");
-        }
-    } catch (err) {
-        console.error(err);
-        alert("Something went wrong");
-    }
 }
 
 // SEARCH ACTORS
@@ -272,7 +260,6 @@ async function fullMovie() {
         alert("Poster not found");
     }
 }
-
 
 checkAdmin();
 

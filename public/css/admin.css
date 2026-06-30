@@ -44,28 +44,34 @@ h1 {
     cursor: pointer;
 }
 
-#movieLlist {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+#movieList {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 10px 0;
+    scroll-behavior: smooth;
+}
+
+#movieList ::-webkit-scrollbar {
+    height: 8px;
 }
 
 .movie-card {
-    background: #1b1b1b;
-    border-radius: 12px;
-    overflow: hidden;
+    min-width: 160px;
+    flex-shrink: 0;
 }
 
 .movie-card img {
-    width: 100%;
-    height: 320px;
+    width: 160px;
+    height: 240px;
     object-fit: cover;
+    border-radius: 10px;
 }
 
-.movie-info {
-    padding: 15px;
+.movie-card h3 {
+    font-size: 14px;
+    text-align: center;
 }
-
 .actions {
     display: flex;
     gap: 10px;

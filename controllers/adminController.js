@@ -54,6 +54,9 @@ exports.login = async (req, res) => {
 exports.dashboard = (req, res) => {
     res.sendFile(path.join(__dirname, "../private/admin.html"));
 };
+exports.updatePage = (req, res) => {
+    res.sendFile(path.join(__dirname, "../private/update.html"));
+};
 
 exports.checkAdmin = (req, res) => {
   const token = req.cookies.token;

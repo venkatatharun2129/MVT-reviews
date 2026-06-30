@@ -1,119 +1,107 @@
-<!-- public/actorMovies.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actors</title>
 
-  <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/main.css">
 
-  <meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
-  >
+    <style>
+        #actorSearch {
+            width: 100%;
+            max-width: 600px;
+            display: block;
+            margin: 20px auto 30px;
+            padding: 15px 20px;
+            border: none;
+            outline: none;
+            border-radius: 50px;
+            font-size: 16px;
+        }
 
-  <title>Actor Movies</title>
-  <link rel="stylesheet" href="/css/main.css">
+        #actorBox {
+            max-width: 1000px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
 
-  <style>
+        #actorBox a {
+            text-decoration: none;
+            color: white;
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 600;
+            transition: .3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,.2);
+        }
 
+        #actorBox a:hover {
+            transform: translateY(-5px);
+        }
 
-#actorSearch{
-  width:100%;
-  max-width:600px;
-  display:block;
-  margin:20px auto 30px;
-  padding:15px 20px;
-  border:none;
-  outline:none;
-  border-radius:50px;
-  font-size:16px;
-}
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-#actorBox{
-  max-width:1000px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:15px;
-}
+        @media(max-width:700px) {
+            #actorBox {
+                grid-template-columns: repeat(4,1fr);
+            }
+        }
 
-#actorBox a{
-  text-decoration:none;
-  color:white;
-  background:#1e293b;
-  padding:20px;
-  border-radius:15px;
-  text-align:center;
-  font-weight:600;
-  transition:.3s;
-  box-shadow:0 4px 15px rgba(0,0,0,.2);
-}
-
-#actorBox a:hover{
-  transform:translateY(-5px);
-}
-
-h1{
-  text-align:center;
-  margin-bottom:20px;
-}
-/*tablet*/
-@media(max-width:700px){
-  #actorBox{
-    grid-template-columns:repeat(4,1fr);
-  }
-}
-
-/*mobile*/
-
-@media(max-width:400px){
-  #actorBox{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-
-  </style>
-
+        @media(max-width:400px) {
+            #actorBox {
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+    </style>
 </head>
 <body>
-  <%- include('partials/header') %>
-  <input type="search" id="actorSearch" placeholder="Seach Actors...">
-  <div id="actorBox"></div>
 
-  <div id="movieGrid"></div>
-  <%- include('partials/footer') %>
+    <%- include('partials/header') %>
 
-  <script>
+    <h1>Actors</h1>
 
+    <input
+        type="search"
+        id="actorSearch"
+        placeholder="Search Actors..."
+    >
 
-    const actorSearch =
-    document.getElementById("actorSearch");
+    <div id="actorBox">
+        <% actor.forEach(actor => { %>
+            <a
+                href="/actor/<%= actor._id %>/"
+                data-name="<%= actor.name.toLowerCase() %>"
+            >
+                <%= actor.name %>
+            </a>
+        <% }) %>
+    </div>
 
-    const actorBox =
-    document.getElementById("actorBox");
-    let allActors = []
-    async function actorData() {
-      const res = await fetch('/api/actors')
-      allActors = await res.json()
-      showActors(allActors)
-    }
-    function showActors(actors) {
-      actorBox.innerHTML = ""
-      actors.forEach(actor => {
+    <%- include('partials/footer') %>
 
-        actorBox.innerHTML += `  <a href="/actors/${actor._id}/movies">
-        ${actor.name}
-        </a>`
-      })
-    }
-    actorSearch.addEventListener("input", ()=> {
-      const value = actorSearch.value.toLowerCase()
-      const filterActors = allActors.filter(actor => actor.name.toLowerCase().includes(value))
-      showActors(filterActors)
-    })
-    actorData()
+    <script>
+        const actorSearch = document.getElementById("actorSearch");
+        const actorLinks = document.querySelectorAll("#actorBox a");
 
-  </script>
+        actorSearch.addEventListener("input", () => {
+            const value = actorSearch.value.toLowerCase();
+
+            actorLinks.forEach(actor => {
+                actor.style.display =
+                    actor.dataset.name.includes(value)
+                    ? "block"
+                    : "none";
+            });
+        });
+    </script>
 
 </body>
 </html>

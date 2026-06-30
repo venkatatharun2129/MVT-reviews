@@ -1,0 +1,15 @@
+<div class="pagination">
+
+    <% if (pagination.hasPrev) { %>
+        <a href="?page=<%= pagination.prevPage %>">Previous</a>
+    <% } %>
+
+    <span>
+        Page <%= pagination.page %> of <%= pagination.pages %>
+    </span>
+
+    <% if (pagination.hasNext) { %>
+        <a href="?page=<%= pagination.nextPage %>">Next</a>
+    <% } %>
+
+</div>

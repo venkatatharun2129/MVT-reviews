@@ -1,156 +1,156 @@
 const Movie = require("../models/Movie");
+const asyncHandler = require("../utils/asyncHandler");
+const ErrorResponse = require("../utils/ErrorResponse");
 
-const getMovie = async (req, res) => {
-    try {
-        const movies = await Movie.find()
-            .populate("cast")
 
-            .sort({ createdAt: -1 });
+// Add Movie
+exports.addMovie = asyncHandler(async (req, res) => {
+    const movie = await Movie.create(req.body);
 
-        res.json(movies);
-    } catch (err) {
-        console.error("Error:", err);
+    res.status(201).json({
+        success: true,
+        message: "Movie added successfully",
+        movie
+    });
+});
+
+// Get All Movies (Pagination + Filter)
+exports.getMovies = asyncHandler(async (req, res) => {
+  
+    const movies = await Movie.find().populate("cast")
+    if (!movies) {
+        return next(
+            new ErrorResponse("Movie not found", 404)
+        );
     }
-};
 
-const addMovie = async (req, res) => {
-    try {
-        const {
-            title,
-            poster,
-            rating,
-            year,
-            runtime,
-            released,
-            type,
-            country,
-            director,
-            cast,
-            language,
-            categories,
-            review,
-            plot,
-            watchOn,
-            trailer,
-            family,
-            awards
-        } = req.body;
-        const movie = new Movie({
-            title,
-            poster,
-            rating,
-            year,
-            runtime,
-            released,
-            type,
-            country,
-            director,
-            cast,
-            language,
-            categories,
-            review,
-            plot,
-            watchOn,
-            trailer,
-            family,
-            awards
-        });
-        const savedMovie = await movie.save();
-        res.status(201).json(savedMovie);
-    } catch (error) {
-        res.status(501).json({ message: error.message });
+    res.status(200).json({
+        success: true,
+        movies
+    });
+});
+
+// Get Single Movie
+exports.singleMovie = asyncHandler(async (req, res, next) => {
+    const movie = await Movie.findById(req.params.id)
+        .populate("cast");
+
+    if (!movie) {
+        return next(
+            new ErrorResponse("Movie not found", 404)
+        );
     }
-};
-const getMoviesByActor = async (req, res) => {
-    try {
-        const actorId = req.params.actorId;
 
-        const movies = await Movie.find({
-            cast: actorId
-        }).populate("cast");
+    res.status(200).json({
+        success: true,
+        movie
+    });
+});
 
-        res.json(movies);
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        });
+// Update Movie
+exports.updateMovie = asyncHandler(async (req, res, next) => {
+    let movie = await Movie.findById(req.params.id);
+
+    if (!movie) {
+        return next(
+            new ErrorResponse("Movie not found", 404)
+        );
     }
-};
 
-const getFilterMovies = async (req, res) => {
-    try {
-        const { category, year, language } = req.query;
-
-        let filter = {};
-
-        if (category) {
-            filter.categories = { $in: [category] };
+    movie = await Movie.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+            new: true,
+            runValidators: true
         }
-        if (year) {
-            filter.year = Number(year);
+    );
+
+    res.status(200).json({
+        success: true,
+        message: "Movie updated successfully",
+        movie
+    });
+});
+
+// Delete Movie
+exports.deleteMovie = asyncHandler(async (req, res, next) => {
+    const movie = await Movie.findById(req.params.id);
+
+    if (!movie) {
+        return next(
+            new ErrorResponse("Movie not found", 404)
+        );
+    }
+
+    await movie.deleteOne();
+
+    res.status(200).json({
+        success: true,
+        message: "Movie deleted successfully"
+    });
+});
+
+// Search Movies
+exports.searchMovies = asyncHandler(async (req, res) => {
+    const keyword = req.query.q || "";
+
+    const movies = await Movie.find({
+        title: {
+            $regex: keyword,
+            $options: "i"
         }
+    }).populate("cast");
 
-        if (language) {
-            filter.language = language;
-        }
+    res.status(200).json({
+        success: true,
+        count: movies.length,
+        movies
+    });
+});
 
-        const movies = await Movie.find(filter);
+// Latest Movies
+exports.getLatestMovies = asyncHandler(async (req, res) => {
 
-        res.status(200).json(movies);
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        });
-    }
-};
-// 🏆 Top Rated Movies (Only 10)
-const getTopRatedMovies = async (req, res) => {
-    try {
-        const movies = await Movie.find()
-            .sort({ rating: -1 }) // highest first
-            .limit(10); // only 10 movies
+    const movies = await Movie.find()
+        .sort({ releaseDate: -1 })
+        .limit(10);
 
-        res.status(200).json(movies);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-const singleMovie = async (req, res) => {
-    try {
-        const movie = await Movie.findById(req.params.id).populate("cast");
+    res.status(200).json({
+        success: true,
+        movies
+    });
+});
 
-        if (!movie) {
-            return res.status(404).json({ message: "Movie not found" });
-        }
+// Top Rated Movies
+exports.getTopRatedMovies = asyncHandler(async (req, res) => {
 
-        res.json(movie);
-    } catch (err) {
-        res.status(500).json({
-            message: err.message
-        });
-    }
-};
+    const movies = await Movie.find()
+        .sort({ rating: -1 })
+        .limit(10);
 
-const deleteMovie = async (req, res) => {
-    try {
-        await Movie.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+        success: true,
+        movies
+    });
+});
 
-        res.json({
-            message: "Movie deleted"
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        });
-    }
-};
+exports.filterMoviesPage =asyncHandler(async (req, res) => {
+    const filter = {};
 
-module.exports = {
-    getMovie,
-    addMovie,
-    getMoviesByActor,
-    getFilterMovies,
-    getTopRatedMovies,
-    singleMovie,
-    deleteMovie
-};
+    const { category, year , language} = req.query;
+
+    if (category) filter.categories = { $in: [category] };
+    if (year) filter.year = Number(year);
+    if (language) filter.language = language;
+
+    const movies = await Movie.find(filter)
+        .sort({ createdAt: -1 })
+        .populate("cast");
+
+    res.status(200).json({
+        success: true,
+        count: movies.length,
+        movies
+    });
+});

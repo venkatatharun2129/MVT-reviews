@@ -1,27 +1,3 @@
-/* =========================
-   1. ROOT VARIABLES
-========================= */
-:root {
-  --primary: #ffcc00;
-  --primary-dark: #e6b800;
-
-  --bg: #0f0f0f;
-  --bg-soft: #1a1a1a;
-  --bg-card: #1c1c1c;
-  --bg-header: rgba(0, 0, 0, 0.95);
-
-  --text: #ffffff;
-  --text-muted: #aaaaaa;
-  --text-soft: #cccccc;
-
-  --border: #222;
-  --border-soft: #333;
-
-  --rating: #ffcc00;
-
-  --shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-  --blur: blur(10px);
-}
 
 /* =========================
    5. LAYOUT CONTAINER
@@ -44,102 +20,35 @@ h2 {
 /* =========================
    7. FILTER SECTION
 ========================= */
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 30px;
-}
+ 
 
-.filters select,
-.filters button {
+select,
+ button {
   flex: 1;
   min-width: 350px;
   padding: 12px;
   border: none;
   border-radius: 10px;
   font-size: 1rem;
+  margin: 8px;
+  color: #ffffff;
 }
 
-.filters select {
+select {
   background: #1e293b;
-  color: var(--text);
 }
 
-.filters button {
+ button {
   background: #2563eb;
-  color: var(--text);
   cursor: pointer;
   font-weight: bold;
   transition: 0.3s;
 }
 
-.filters button:hover {
+ button:hover {
   opacity: 0.9;
 }
 
-/* =========================
-   8. MOVIE GRID
-========================= */
-#movieList {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
-}
-
-/* =========================
-   9. MOVIE CARD
-========================= */
-.movie-card {
-  text-decoration: none;
-  color: var(--text);
-  background: #1e293b;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: 0.3s;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.movie-card:hover {
-  transform: translateY(-4px);
-}
-
-.movie-card img {
-  width: 100%;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
-  display: block;
-}
-
-.movie-info {
-  padding: 10px;
-}
-
-.movie-info h1 {
-  margin-bottom: 6px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* =========================
-   10. RATING
-========================= */
-.rating {
-  font-size: 30px;
-  font-weight: 700;
-  color: #fbbf24;
-}
-
-/* =========================
-   11. EMPTY STATE
-========================= */
-.empty {
-  text-align: center;
-  grid-column: 1 / -1;
-  font-size: 1.2rem;
-  margin-top: 30px;
-}
 /* =========================
    RESPONSIVE DESIGN
 ========================= */
@@ -153,66 +62,5 @@ h2 {
 
   h2 {
     font-size: 1.6rem;
-  }
-
-  .filters {
-    flex-direction: column;
-  }
-
-  .filters select,
-  .filters button {
-    width: 100%;
-  }
-
-  #movieList {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-
-  .movie-info h1 {
-    font-size: 1rem;
-  }
-
-  .rating {
-    font-size: 24px;
-  }
-}
-
-/* Mobile Phones */
-@media (max-width: 480px) {
-
-  .container {
-    padding: 10px;
-  }
-
-  h2 {
-    font-size: 1.4rem;
-  }
-
-  #movieList {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
-
-  .movie-card {
-    border-radius: 10px;
-  }
-
-  .movie-info {
-    padding: 8px;
-  }
-
-  .movie-info h1 {
-    font-size: 0.9rem;
-  }
-
-  .rating {
-    font-size: 20px;
-  }
-
-  .filters select,
-  .filters button {
-    padding: 10px;
-    font-size: 0.9rem;
   }
 }

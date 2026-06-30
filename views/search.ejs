@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search: <%= query %> | MVT Reviews</title>
+
+<meta name="description"
+      content="Search results for <%= query %> on MVT Reviews.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+
+<h1 style="padding:10px;">All Movies</h1>
+    <%- include('partials/header') %>
+<div class="movie-list">
+  
+    <%- include('partials/movieGrid') %>
+</div>
+    <%- include('partials/paging') %>
+    <%- include('partials/footer') %>
+
+</body>
+</html>

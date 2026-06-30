@@ -1,24 +1,28 @@
 const express = require("express");
 const router = express.Router();
-const Movie = require("../models/Movie");
+
 const {
-    getMovie,
     addMovie,
-    getMoviesByActor,
-    getFilterMovies,
-    getTopRatedMovies,
+    getMovies,
     singleMovie,
+    updateMovie,
     deleteMovie,
-    homePage
+    searchMovies,
+    getLatestMovies,
+    getTopRatedMovies,
+    filterMoviesPage,
 } = require("../controllers/movieController");
-router.get("/", getMovie);
+
 router.post("/", addMovie);
-router.get("/filter", getFilterMovies);
 
+router.get("/", getMovies);
+router.get("/search", searchMovies);
+router.get("/latest", getLatestMovies);
 router.get("/top-rated", getTopRatedMovies);
+router.get("/filter", filterMoviesPage);
+
 router.get("/:id", singleMovie);
-router.get("/actor/:actorId", getMoviesByActor);
-
-
+router.put("/:id", updateMovie);
 router.delete("/:id", deleteMovie);
+
 module.exports = router;

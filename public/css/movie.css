@@ -1,224 +1,173 @@
 
-
-/* =========================
-   PAGE WRAPPER
-========================= */
-.movie-container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 24px;
+.movie-container{
+    max-width:1100px;
+    margin:30px auto;
+    padding:20px;
 }
 
-/* =========================
-   TOP LAYOUT (CLEAN GRID)
-========================= */
-.top-section {
-    display: flex;
-    gap: 26px;
-    flex-wrap: wrap;
-    align-items: flex-start;
+.movie-top{
+    display:flex;
+    gap:30px;
+    background:#1b1f27;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
 }
 
-/* =========================
-   POSTER (SOFT SHADOW ONLY)
-========================= */
-.poster img {
-    width: 280px;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+.poster-box img{
+    width:280px;
+    max-width:100%;
+    border-radius:15px;
+    display:block;
 }
 
-/* =========================
-   INFO AREA
-========================= */
-.info {
-    flex: 1;
-    min-width: 280px;
+.movie-info{
+    flex:1;
 }
 
-.title {
-    font-size: 32px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    letter-spacing: 0.3px;
+.movie-info h1{
+    margin:0 0 18px;
+    font-size:2.2rem;
 }
 
-/* =========================
-   BADGES (MINIMAL PILLS)
-========================= */
-.meta {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 14px;
+.ryl{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
 }
 
-.rating, .year, .language{
-    border: 1px solid #2a2f36;
-    padding: 5px 12px;
-    border-radius: 18px;
-    font-size: 13px;
-    text-decoration: none;
-    color:#ffffff;
-}
-.rating{
-  background-color: red;
-}
-.year{
-  background-color: green;
-}
+.rate,
+.year,
 .language{
-  background-color: #831af6;
+    padding:10px 16px;
+    border-radius:30px;
+    font-weight:bold;
+    text-decoration:none;
 }
 
-/* =========================
-   DESCRIPTION BOX (CLEAN BLOCK)
-========================= */
-.review-box {
-    background: #1a1d21;
-    border: 1px solid #2a2f36;
-    padding: 14px;
-    border-radius: 10px;
-    line-height: 1.7;
-    margin-top: 10px;
-    color: #cfcfcf;
+.rate{
+    background:#ff9800;
+    color:#111;
 }
 
-/* =========================
-   QUICK DETAILS (SOFT CARDS)
-========================= */
-.quick-details {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 10px;
-    margin-top: 16px;
+.year{
+    background:#2e7d32;
+    color:#fff;
 }
 
-.card {
-    background: #1a1d21;
-    border: 1px solid #2a2f36;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 13px;
+.language{
+    background:#fdd835;
+    color:#111;
 }
 
-/* =========================
-   SECTION HEADINGS (YOUR UNIQUE STYLE)
-========================= */
-.section {
-    margin-top: 32px;
+.details p{
+    margin:10px 0;
+    color:#ddd;
 }
 
-.section h3 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #ffffff;
-    position: relative;
-    padding-left: 10px;
+section{
+    margin-top:25px;
+    background:#1b1f27;
+    padding:20px;
+    border-radius:18px;
+    box-shadow:0 6px 20px rgba(0,0,0,.25);
 }
 
-.section h3::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 4px;
-    width: 3px;
-    height: 18px;
-    background: #ff0303;
-    border-radius: 2px;
+section h2{
+    margin-top:0;
+    color:#ffd54f;
+    border-left:5px solid #ffd54f;
+    padding-left:12px;
 }
 
-/* =========================
-   TAGS (CLEAN FLOAT STYLE)
-========================= */
-.tag-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+section p{
+    line-height:1.8;
 }
 
-.tag {
-    background: #00aeff;
-    border: 1px solid #2a2f36;
-    padding: 6px 12px;
-    border-radius: 16px;
-    font-size: 12.5px;
-    color: #ffffff;
-    text-decoration: none;
-    transition: 0.2s;
+.chip{
+    display:inline-block;
+    margin:6px;
+    padding:10px 16px;
+    background:#a6e81b;
+    color:black;
+    text-decoration:none;
+    border-radius:25px;
+    transition:.25s;
 }
 
-.tag:hover {
-    background: #2a2f36;
+.chip:hover{
+    background:#00bcd4;
 }
 
-/* =========================
-   CAST LINK STYLE
-========================= */
-.tag.link {
-  background-color: yellow;
-    color: #4c0808;
+.cast-chip{
+    background:#673ab7;
+    color:#fff;
 }
 
-/* =========================
-   OTT BUTTONS (SUBTLE COLOR STRIP)
-========================= */
-.platforms {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+.cast-chip:hover{
+    background:#7e57c2;
 }
 
-.platform-btn {
-    background: #e99215;
-    border: 1px solid #2a2f36;
-    padding: 8px 14px;
-    border-radius: 10px;
-    font-size: 13px;
-    color: #ffffff;
-    text-decoration: none;
+iframe{
+    width:100%;
+    height:500px;
+    border:0;
+    border-radius:15px;
 }
 
-.platform-btn:hover {
-    border-color: #6c7bff;
+.platforms{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    align-items:center;
 }
 
-/* =========================
-   TRAILER
-========================= */
-.trailer {
-    width: 100%;
-    height: 420px;
-    border-radius: 12px;
-    border: 1px solid #2a2f36;
-    margin-top: 10px;
+.platforms a{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:8px 12px;
+    background:#1f2430;
+    border-radius:10px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 768px) {
-    .top-section {
-        flex-direction: column;
-        align-items: center;
+.platforms img{
+    width:50px;
+    height:50px;
+    object-fit:contain;
+    display:block;
+}
+
+@media(max-width:768px){
+
+    .movie-container{
+        padding:12px;
     }
 
-    .poster img {
-        width: 100%;
-        max-width: 320px;
+    .movie-top{
+        flex-direction:column;
+        text-align:center;
     }
 
-    .title {
-        font-size: 26px;
-        text-align: center;
+    .poster-box img{
+        width:220px;
+        margin:auto;
     }
 
-    .meta {
-        justify-content: center;
+    .movie-info h1{
+        font-size:1.8rem;
     }
 
-    .trailer {
-        height: 240px;
+    .ryl{
+        justify-content:center;
+    }
+
+    iframe{
+        height:230px;
+    }
+
+    .platforms{
+        justify-content:center;
     }
 }

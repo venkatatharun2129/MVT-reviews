@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Movies - MVT Reviews</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+
+
+    <%- include('partials/header') %>
+    <h1><%= actor.name %> Movies</h1>
+
+<div class="movie-list">
+  
+    <%- include('partials/movieGrid') %>
+</div>
+    <%- include('partials/paging') %>
+    <%- include('partials/footer') %>
+
+</body>
+</html>
