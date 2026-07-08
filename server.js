@@ -30,6 +30,12 @@ app.use(
     })
 );
 app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  if (req.hostname === "mvt-reviews.onrender.com") {
+    return res.redirect(301, "https://www.mvtreviews.free.je" + req.originalUrl);
+  }
+  next();
+});
 app.use("/", renderRoute)
 app.use("/api/movies", movieRoute);
 app.use("/api/actors", actorRoute);
