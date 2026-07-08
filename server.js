@@ -17,6 +17,10 @@ connectDB();
 const app = express();
 // Security middlewares
 //app.use(helmet());
+app.use((req, res, next) => {
+    res.locals.req = req;
+    next();
+});
 app.use(express.json());
 app.use(cookieParser());
 app.set("view engine", "ejs");
