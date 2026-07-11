@@ -12,6 +12,7 @@ const movieRoute = require("./routes/movieRoute");
 const adminRoute = require("./routes/adminRoute");
 const trailerRoute = require("./routes/trailerRoute");
 const posterRoute = require("./routes/posterRoute");
+const sitemapRoute = require("./routes/sitemapRoute");
 
 connectDB();
 const app = express();
@@ -35,12 +36,16 @@ app.use(
 );
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
-  if (req.hostname === "mvt-reviews.onrender.com") {
-    return res.redirect(301, "https://www.mvtreviews.free.je" + req.originalUrl);
-  }
-  next();
+    if (req.hostname === "mvt-reviews.onrender.com") {
+        return res.redirect(
+            301,
+            "https://www.mvtreviews.free.je" + req.originalUrl
+        );
+    }
+    next();
 });
-app.use("/", renderRoute)
+app.use("/", renderRoute);
+app.use("/", sitemapRoute);
 app.use("/api/movies", movieRoute);
 app.use("/api/actors", actorRoute);
 app.use("/api/admin", adminRoute);
