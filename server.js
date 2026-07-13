@@ -28,12 +28,13 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 
 // CORS (important)
-app.use(
-    cors({
-        origin: "http://localhost:5000", // change in production
-        credentials: true
-    })
-);
+
+
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
+
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
     if (req.hostname === "mvt-reviews.onrender.com") {
