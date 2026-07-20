@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>ADD ACTOR adimin panel</title>
+        <link rel="stylesheet" href="/css/admin.css" />
+    </head>
+    <body>
+        <h1>Actor Adding Panel</h1>
+        <form id="movieForm">
+            <input id="name" type="text" placeholder="name" required />
+            <input id="image" type="text" placeholder="image url" />
+            <input id="age" type="number" placeholder="age" />
+            <select name="" id="bio">
+              <option value="TollyWood">TollyWood</option>
+              <option value="HollyWood">HollyWood</option>
+              <option value="BollyWood">BollyWood</option>
+              <option value="KollyWood">KollyWood</option>
+              <option value="MollyWood">MollyWood</option>
+            </select>
+            <select name="" id="gender"> <option value="Male">Male</option>
+             <option value="Female">Female</option>
+             </select>
+              <select name"" id="type">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            <button type="submit">AddActor</button>
+        </form>
+        <input id="actorSearch" type="text" placeholder="search...." />
+        <div id="actorResults"></div>
+        <script src="/js/addActor.js"></script>
+    </body>
+</html>

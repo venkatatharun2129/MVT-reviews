@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Tom Holland",
+    "gender": "Male",
+    "bio": "Hollywood",
+    "type": ""
+  },
+  {
+    "name": "Zendaya",
+    "gender": "Female",
+    "bio": "Hollywood",
+    "type": ""
+  },
+  {
+    "name": "Benedict Cumberbatch",
+    "gender": "Male",
+    "bio": "Hollywood",
+    "type": ""
+  },
+  {
+    "name": "Jacob Batalon",
+    "gender": "Male",
+    "bio": "Hollywood",
+    "type": ""
+  },
+  {
+    "name": "Willem Dafoe",
+    "gender": "Male",
+    "bio": "Hollywood",
+    "type": ""
+  },
+  {
+    "name": "Alfred Molina",
+    "gender": "Male",
+    "bio": "Hollywood",
+    "type": ""
+  },
+  {
+    "name": "Jamie Foxx",
+    "gender": "Male",
+    "bio": "Hollywood",
+    "type": ""
+  },
+  {
+    "name": "Andrew Garfield",
+    "gender": "Male",
+    "bio": "Hollywood",
+    "type": ""
+  },
+  {
+    "name": "Tobey Maguire",
+    "gender": "Male",
+    "bio": "Hollywood",
+    "type": ""
+  }
+]

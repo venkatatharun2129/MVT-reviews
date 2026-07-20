@@ -233,43 +233,38 @@ async function searchTrailer() {
     }
 }
 async function fullMovie() {
-    const title = document.getElementById("title").value;
+    const input = document.getElementById("title").value.trim();
 
-    if (!title) {
-        alert("Enter movie name first");
+    if (!input) {
+        alert("Enter movie name or IMDb ID");
         return;
     }
 
-    const res = await fetch(
-        `/api/poster/full?movie=${encodeURIComponent(title)}`
-    );
+    // If input looks like an IMDb ID (tt1234567)
+    const query = input.startsWith("tt")
+        ? `imdbId=${encodeURIComponent(input)}`
+        : `movie=${encodeURIComponent(input)}`;
 
+    const res = await fetch(`/api/poster/full?${query}`);
     const data = await res.json();
 
     if (data.success) {
-        document.getElementById("poster").value = data.data.Poster;
-        document.getElementById("year").value = data.data.Year;
-        document.getElementById("runtime").value = data.data.Runtime;
-        document.getElementById("released").value = data.data.Released;
-        document.getElementById("type").value = data.data.Type;
-        document.getElementById("country").value = data.data.Country;
-        document.getElementById("director").value = data.data.Director;
-        document.getElementById("awards").value = data.data.Awards;
-        document.getElementById("plot").value = data.data.Plot;
+        document.getElementById("poster").value = data.data.Poster || "";
+        document.getElementById("year").value = data.data.Year || "";
+        document.getElementById("runtime").value = data.data.Runtime || "";
+        document.getElementById("released").value = data.data.Released || "";
+        document.getElementById("type").value = data.data.Type || "";
+        document.getElementById("country").value = data.data.Country || "";
+        document.getElementById("director").value = data.data.Director || "";
+        document.getElementById("awards").value = data.data.Awards || "";
+        document.getElementById("plot").value = data.data.Plot || "";
 
         document.getElementById("fullMovie").innerHTML = `
-        <pre style="
-        background:#111;
-        color:#0f0;
-        padding:10px;
-        border-radius:10px;
-        overflow:auto;
-    ">
-        ${JSON.stringify(data, null, 2)}
-    </pre>
-        `;
+<pre style="background:#111;color:#0f0;padding:10px;border-radius:10px;overflow:auto;">
+${JSON.stringify(data, null, 2)}
+</pre>`;
     } else {
-        alert("Poster not found");
+        alert(data.message || "Movie not found");
     }
 }
 

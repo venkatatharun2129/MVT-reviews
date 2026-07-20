@@ -57,6 +57,12 @@ exports.dashboard = (req, res) => {
 exports.updatePage = (req, res) => {
     res.sendFile(path.join(__dirname, "../private/update.html"));
 };
+exports.actorPage = (req, res) => {
+    res.sendFile(path.join(__dirname, "../private/addActor.html"));
+};
+exports.updateActor = (req, res) => {
+    res.sendFile(path.join(__dirname, "../private/updateActor.html"));
+};
 
 exports.checkAdmin = (req, res) => {
   const token = req.cookies.token;

@@ -8,7 +8,12 @@ router.get("/login", adminController.loginPage);
 router.post("/login", adminController.login);
 
 router.get("/dashboard", adminAuth, adminController.dashboard);
+
 router.get("/update", adminAuth, adminController.updatePage);
+
+router.get("/add-actor", adminAuth, adminController.actorPage);
+
+router.get("/update-actor", adminAuth, adminController.updateActor);
 
 router.get("/check", adminAuth, adminController.checkAdmin);
 

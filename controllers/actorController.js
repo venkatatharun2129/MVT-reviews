@@ -3,57 +3,96 @@
 const Actor = require("../models/Actor");
 const Movie = require("../models/Movie");
 
-const getActors = async (req, res) => {
-    try {
-        const actors = await Actor.find().sort({ name: 1 });
+const asyncHandler = require("../utils/asyncHandler");
+const ErrorResponse = require("../utils/errorResponse");
+//GET ACTORS
+exports.getActors = asyncHandler(async (req, res) => {
+    const actors = await Actor.find().sort({ name: 1 });
 
-        res.json(actors);
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        });
-    }
-};
+    res.json(actors);
+    res.status(500).json({
+        message: error.message
+    });
+});
 
 //searchActors
 
-const searchActors = async (req, res) => {
-    try {
-        const keyword = req.query.q || "";
+exports.searchActors = asyncHandler(async (req, res) => {
+    const keyword = req.query.q || "";
 
-        const actors = await Actor.find({
-            name: {
-                $regex: String(keyword),
-                $options: "i"
-            }
-        });
+    const actors = await Actor.find({
+        name: {
+            $regex: String(keyword),
+            $options: "i"
+        }
+    });
 
-        res.json(actors);
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        });
-    }
-};
+    res.json(actors);
+    res.status(500).json({
+        message: "Error Occured"
+    });
+});
 //singleActor
 
-const singleActor = async (req, res) => {
-    try {
-        const actor = await Actor.findById(req.params.id);
+exports.singleActor = asyncHandler(async (req, res) => {
+    const actor = await Actor.findById(req.params.id);
 
-        const movies = await Movie.find({
-            cast: req.params.id
-        }).populate("cast");
-        res.json({ actor, movies });
-    } catch (err) {
-        res.status(500).json({
-            message: err.message
+    if (!actor) {
+        return res.status(404).json({
+            message: "Actor not found"
         });
     }
-};
 
-module.exports = {
-    getActors,
-    searchActors,
-    singleActor
-};
+    res.json(actor);
+});
+/*==============
+Add Actor
+================*/
+exports.addActor = asyncHandler(async (req, res) => {
+    const actor = await Actor.create(req.body);
+
+    res.status(201).json({
+        success: true,
+        message: "Actor added successfully",
+        actor
+    });
+});
+/*====================
+UPDATE ACTOR
+====================*/
+
+exports.updateActor = asyncHandler(async (req, res, next) => {
+    let actor = await Actor.findById(req.params.id);
+
+    if (!actor) {
+        return next(new ErrorResponse("Actor not found", 404));
+    }
+
+    actor = await Actor.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
+
+    res.status(200).json({
+        success: true,
+        message: "Actor updated successfully",
+        actor
+    });
+});
+/*=================
+Delete Actor
+=================*/
+exports.deleteActor = asyncHandler(async (req, res, next) => {
+    const actor = await Actor.findById(req.params.id);
+
+    if (!actor) {
+        return next(new ErrorResponse("Actor not found", 404));
+    }
+
+    await actor.deleteOne();
+
+    res.status(200).json({
+        success: true,
+        message: "Actor deleted successfully"
+    });
+});

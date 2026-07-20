@@ -13,12 +13,7 @@
             <h1>Movie Admin Panel</h1>
 
             <form id="movieForm">
-                <input
-                    type="text"
-                    id="title"
-                    placeholder="Movie Title"
-                    required
-                />
+                <input type="text" id="title" placeholder="Movie Title or IMDb ID" required>
 
                 <!-- BEST OPTION -->
                 <!-- Poster URL -->
@@ -27,7 +22,7 @@
                     id="poster"
                     placeholder="Poster Image URL"
                     required
-                    readonly
+                    
                 />
 
                 <input
@@ -177,14 +172,14 @@
                     type="text"
                     id="trailer"
                     placeholder="Trailer URL"
-                    readonly
+                    
                 />
                 <input type="text" id="family" placeholder="family" />
                 <input
                     type="text"
                     id="awards"
                     placeholder="awards here"
-                    readonly
+                    
                 />
                 
 
@@ -203,6 +198,7 @@
             </form>
 
             <a href="/api/admin/logout" class="logout">Logout</a>
+            <a href="/api/admin/add-actor" class="logout">Add Actor</a>
 
 
         <div id="fullMovie"></div>

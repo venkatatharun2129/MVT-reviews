@@ -2,49 +2,50 @@ const axios = require("axios");
 
 exports.getFullMovieJson = async (req, res) => {
     try {
-        const title = req.query.movie;
-
-        if (!title) {
-            return res.json({
-                success: false,
-                message: "Movie name is required"
-            });
-        }
-
+        const { movie, imdbId } = req.query;
         const apiKey = process.env.OMDB_API_KEY;
 
-        // STEP 1: Search movie
-        const searchUrl = `https://www.omdbapi.com/?s=${encodeURIComponent(title)}&apikey=${apiKey}`;
-        const searchRes = await axios.get(searchUrl);
-
-        if (!searchRes.data.Search || searchRes.data.Search.length === 0) {
+        if (!movie && !imdbId) {
             return res.json({
                 success: false,
-                message: "No results found"
+                message: "Movie name or IMDb ID is required"
             });
         }
 
-        const imdbId = searchRes.data.Search[0].imdbID;
+        let id = imdbId;
 
-        // STEP 2: Get FULL DATA
-        const detailUrl = `https://www.omdbapi.com/?i=${imdbId}&plot=full&apikey=${apiKey}`;
+        // If IMDb ID is not provided, search by movie name
+        if (!id) {
+            const searchUrl = `https://www.omdbapi.com/?s=${encodeURIComponent(movie)}&apikey=${apiKey}`;
+            const searchRes = await axios.get(searchUrl);
+
+            if (!searchRes.data.Search || searchRes.data.Search.length === 0) {
+                return res.json({
+                    success: false,
+                    message: "No results found"
+                });
+            }
+
+            id = searchRes.data.Search[0].imdbID;
+        }
+
+        // Get full details using IMDb ID
+        const detailUrl = `https://www.omdbapi.com/?i=${id}&plot=full&apikey=${apiKey}`;
         const detailRes = await axios.get(detailUrl);
 
-        const data = detailRes.data;
-
-        if (!data || data.Response === "False") {
+        if (detailRes.data.Response === "False") {
             return res.json({
                 success: false,
-                message: "Movie details not found"
+                message: detailRes.data.Error
             });
         }
 
-        // 🔥 RETURN FULL RAW JSON (CLEAN)
         return res.json({
             success: true,
-            imdbId: imdbId,
-            data: data
+            imdbId: id,
+            data: detailRes.data
         });
+
     } catch (err) {
         return res.json({
             success: false,
